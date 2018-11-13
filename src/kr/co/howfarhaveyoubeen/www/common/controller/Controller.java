@@ -26,6 +26,7 @@ public class Controller extends HttpServlet{
 			String RequestURI=request.getRequestURI();
 			String contextPath=request.getContextPath();
 			String command=RequestURI.substring(contextPath.length());
+			System.out.println(command);
 			Action action = null;
 			String forward = null;
 

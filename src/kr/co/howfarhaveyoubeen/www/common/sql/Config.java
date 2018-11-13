@@ -25,7 +25,7 @@ public class Config {
 	private final String domain = "localhost";
 	private final String id = "root";
 	private final String pw = "dnpqtjqltm";
-	private final String dbname = "kgcs";
+	private final String dbname = "database";
 	//String URL= "jdbc:mysql://127.0.0.1:3306/db_example?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=CONVERT_TO_NULL&serverTimezone=GMT";
 	private String url = tool + domain + ":" + port + "/" + dbname
 			+ "?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT&useSSL=false&validationQuery=select 1";
