@@ -18,7 +18,6 @@
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -114,7 +113,7 @@
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">다이어리 쓰기:</h6>
             <a class="dropdown-item" href="#">항공권 인식</a>
-            <a class="dropdown-item" href="#">항공권 없이 쓰기</a>
+            <a class="dropdown-item" href="diarywriter.do">항공권 없이 쓰기</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">나의 여행 다이어리:</h6>
             <a class="dropdown-item" href="diarylist.do">리스트</a>
@@ -155,73 +154,7 @@
             <li class="breadcrumb-item active">Overview</li>
           </ol>
 
-          <!-- Icon Cards-->
-          <div class="row">
-            <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-primary o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                    <i class="fas fa-fw fa-comments"></i>
-                  </div>
-                  <div class="mr-5">26 New Messages!</div>
-                </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-warning o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                    <i class="fas fa-fw fa-list"></i>
-                  </div>
-                  <div class="mr-5">11 New Tasks!</div>
-                </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-success o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                    <i class="fas fa-fw fa-shopping-cart"></i>
-                  </div>
-                  <div class="mr-5">123 New Orders!</div>
-                </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-            <div class="col-xl-3 col-sm-6 mb-3">
-              <div class="card text-white bg-danger o-hidden h-100">
-                <div class="card-body">
-                  <div class="card-body-icon">
-                    <i class="fas fa-fw fa-life-ring"></i>
-                  </div>
-                  <div class="mr-5">13 New Tickets!</div>
-                </div>
-                <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
-                </a>
-              </div>
-            </div>
-          </div>
+        
 
           <!-- Page Content -->
           <div id="main" class="wrapper style1">
@@ -232,22 +165,19 @@
 						</header>
 
 						<!-- Table -->
-							<section>
-								<div class="row">
-								<div class="col-xs-6 col-md-6 col-sm-6">
-								<h3>나의 여행 다이어리</h3>
-								</div>
-								<div class="pull-right">
-									<a href="#" class="button">Default</a>
-								</div>
-								</div>
+							<section><div>
+									<button style="float:right"type="button" class="btn btn-default" >
+                                 		   전환
+                                    </button>
+                                
+                                    </div>
+                                    <br>
 								<div id="maincontent" class="table-wrapper">
 									<table class="boardtable" id="table"
 										data-toggle="table"
 										data-pagination="true"
 										data-search="false"
-										data-page-list="[10]"
-									>
+										data-page-list="[10]">
 										<thead>
 											<tr class="table-style">
 												<th data-field="id" data-sortabel="true">번호</th>
@@ -260,20 +190,23 @@
 									</table>
 								</div>
 								<br>
-								<div class="row"><!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
-									<div class="col-8 col-7-medium col-3-xsmall">
-									</div>
-									<div class="col-4 col-5-medium col-12-xsmall">
-										<ul class="actions stacked">
-											<li><a href="#" class="button primary">Default</a>
-											<a href="#" class="button">Default</a></li>
-										</ul>
-									</div>
+								<div style="float:right"><!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
+										<a>
+										<button type="button" class="btn btn-default">
+                                      	  항공권 인식
+                                        </button>
+                                        </a>
+                                        <a>
+                                        <button type="button" class="btn btn-default">
+                                   	     쓰기
+                                        </button>
+                                        </a>
 								</div>
 							</section>
 				</div>
 
         </div>
+        <div id="googlemaps"></div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
@@ -355,6 +288,30 @@
         callSetupTableView();
      })
 	</script>
+	  <script>
+   function initMap() {
+       var myLatLng = new google.maps.LatLng(39.305, -76.617);
+
+       // Create a map object and specify the DOM element
+       // for display.
+       var map = new google.maps.Map(document.getElementById('googlemaps'), {
+         center: myLatLng,
+         zoom: 4
+       });
+
+       // Create a marker and set its position.
+       var marker = new google.maps.Marker({
+         map: map,
+         position: myLatLng,
+         title: 'Hello World!'
+       });
+       
+     }
+   
+   
+ 
+	</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChJu-iy9Vs1uUj-hufEP9yT8j86KNViZI&callback=initMap" async defer></script>
   </body>
 
 </html>

@@ -26,21 +26,27 @@
     <link href="css/sb-admin.css" rel="stylesheet">
 
   </head>
-
+	
+<%
+	String userID = null;
+	if(session.getAttribute("userID") != null)
+		userID = (String) session.getAttribute("userID");
+%>
+	
   <body id="page-top">
 
-    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
-      <a class="navbar-brand mr-1" href="Index">How far have you been</a>
+    <a class="navbar-brand mr-1" href="Index">How far have you been</a>
 
-      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-        <i class="fas fa-bars"></i>
-      </button>
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
 
-      <!-- Navbar Search -->
-      <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-        <div class="input-group">
-          <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+    <!-- Navbar Search -->
+    <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
           <div class="input-group-append">
             <button class="btn btn-primary" type="button">
               <i class="fas fa-search"></i>
@@ -79,12 +85,24 @@
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
+          
+        
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+            <%
+          if(userID == null){
+          %>
             <a class="dropdown-item" href="loginpage.do">로그인</a>
-            <a class="dropdown-item" href="register.do">회원가입</a>
-            <a class="dropdown-item" href="forgot-password.do">아이디/비밀번호 찾기</a>
-            <div class="dropdown-divider"></div><!-- 우선 삭제 안해놓을게 -->
-            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+            <a class="dropdown-item" href="registerpage.do">회원가입</a>
+            <a class="dropdown-item" href="forgotpasswordpage.do">아이디/비밀번호 찾기</a>
+            <%
+				}else{
+			%>
+            <!-- 우선 삭제 안해놓을게 -->
+            <a class="dropdown-item" href="changepasswordpage.do" >비밀번호 변경</a>
+            <a class="dropdown-item" href="logout.do" >로그아웃</a>
+            <%
+				}
+			%>
           </div>
         </li>
       </ul>
@@ -101,7 +119,7 @@
             <span>Mainpage</span>
           </a>
         </li>
-        
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
@@ -120,22 +138,26 @@
         <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>공유하기</span></a>
+            <span>공유하기</span>
+          </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
-            <span>공유된 다이어리 보기(한번 테스트용)</span></a>
+            <span>공유된 다이어리 보기(한번 테스트용)</span>
+          </a>
         </li>
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>차트예시(우선 놔둠)</span></a>
+            <span>차트예시(우선 놔둠)</span>
+          </a>
         </li>
-         <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
-            <span>테이블이용예시</span></a>
+            <span>테이블이용예시</span>
+          </a>
         </li>
       </ul>
 
@@ -235,9 +257,7 @@
             <div class="card-header">
               <i class="fas fa-table"></i>
               Data Table Example</div>
-            <div class="card-body">
-            
-            </div>
+            <div class="card-body"></div>
             <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
           </div>
 

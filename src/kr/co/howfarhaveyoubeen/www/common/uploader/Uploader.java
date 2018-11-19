@@ -22,6 +22,7 @@ import javax.servlet.http.HttpSession;
 
 import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 //ckeditor 사용!!!
@@ -29,6 +30,9 @@ import com.oreilly.servlet.MultipartRequest;
 public class Uploader extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static final int KEY_SIZE = 1024;
+	private int maxRequestSize = 1024 * 1024 * 50;
+	
+
 
 	public Uploader() {
 		super();
@@ -37,58 +41,20 @@ public class Uploader extends HttpServlet {
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			request.setCharacterEncoding("UTF-8");
-			HttpSession session = request.getSession();
-			if(session.getAttribute("user") != null)
-			{
-				String contextPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath() + "/img/uploadimg/";
-				String sFunc = request.getParameter("CKEditorFuncNum");
+		request.setCharacterEncoding("UTF-8");
+		String path = "image/uploadimage"; // 개발자 지정 폴더
+		String real_save_path = request.getServletContext().getRealPath(path);
+		MultipartRequest multi = new MultipartRequest(request, real_save_path, maxRequestSize, "UTF-8", new DefaultFileRenamePolicy());
+		String fileName = multi.getOriginalFileName("upload"); // ckeditor5 static const
+		JsonObject outData = new JsonObject();
+		outData.addProperty("uploaded", true);
+		outData.addProperty("url", request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()+"/howfarhaveyoubeen2/" + path + "/" + fileName);
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		System.out.println(outData.toString());
+		response.getWriter().print(outData.toString());
 
-				String data = request.getServletContext().getRealPath("/");
-				String url=data+"img/uploadimg";
-				MultipartRequest multi = new MultipartRequest(request, url, Integer.MAX_VALUE, "UTF-8");
-				String filename = multi.getOriginalFileName("upload");
 
-				String check = filename.substring(filename.lastIndexOf(".")+1, filename.length());
-				if(check.equals("jsp") || check.equals("php") || check.equals("js") || check.equals("css") || check.equals("xml")) {
-					File deleteFile = new File(url, filename);
-					deleteFile.delete();
-					response.getWriter().println("<script type='text/javascript'>alert('올릴 수 없는 확장자입니다.');</script>");
-					response.getWriter().flush(); 
-					return;
-				}
-				SimpleDateFormat simDf = new SimpleDateFormat("yyyyMMddHHmmss"); 
-				long currentTime = System.currentTimeMillis(); 
-				String newFileName =  simDf.format(new Date(currentTime))+"-"+filename;
-				File oldFile = new File(url, filename);
-				// 실제 저장될 파일 객체 생성
-				File newFile = new File(url, newFileName);
-				// 파일명 rename
-				FileInputStream fin = null;
-				FileOutputStream fout = null;
-				byte[] buf = new byte[1024];
-				int read = 0;
-				if(!oldFile.renameTo(newFile)){
-					// rename이 되지 않을경우 강제로 파일을 복사하고 기존파일은 삭제
-					buf = new byte[1024];
-					fin = new FileInputStream(oldFile);
-					fout = new FileOutputStream(newFile);
-					read = 0;
-					while((read=fin.read(buf,0,buf.length))!=-1){
-						fout.write(buf, 0, read);
-					}
-					fin.close();
-					fout.close();
-					oldFile.delete();
-				}  
-				response.getWriter().println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction(" + sFunc + ", '"+ contextPath + newFileName + "', '완료');</script>");
-				response.getWriter().flush(); 
-			}
-		} catch (Exception ex) {
-			throw new ServletException(ex.getMessage(), ex);
-		}
 	}
 
 	@Override

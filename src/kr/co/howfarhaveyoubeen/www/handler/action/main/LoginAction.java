@@ -15,86 +15,87 @@ import com.google.gson.Gson;
 
 import kr.co.howfarhaveyoubeen.www.common.controller.*;
 import kr.co.howfarhaveyoubeen.www.handler.dao.googlevision.GoogleVisionDAO;
+import kr.co.howfarhaveyoubeen.www.handler.dao.user.SHA256;
 import kr.co.howfarhaveyoubeen.www.handler.dao.user.UserDAO;
+import kr.co.howfarhaveyoubeen.www.handler.vo.Userdbbean;
 
 public class LoginAction implements Action{//login.do
 
 
    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-      LoginManager manager = LoginManager.getInstance();
-      String id = request.getParameter("id");
-      String password = request.getParameter("password_hash");
-      //System.out.println(id+password);
-    
-      UserDAO dao = UserDAO.getInstance();
-      dao.getUser(id);// Database test
-     
-      GoogleVisionDAO dao2 = GoogleVisionDAO.getInstance(); //Googlevision test
-      String url = "C:\\Users\\gny32\\Desktop\\웹개발용\\KakaoTalk_20181105_171530972.jpg";
-      dao2.detectText(url);
-      
-     /* UserDAO dao = UserDAO.getInstance();
-      UserBean it = dao.getUser(id);
-      HttpSession session = request.getSession();
-      Gson gson = new Gson();
-      if(it!=null) 
-         if(it.password.equals(password)) {
-            if(manager.isUsing(id)) {
-               manager.removeSession(id);
-            }
-            manager.setSession(request.getSession(), id);
-            UserTypeBean type = dao.getType(it.type);
-            String path = "kr.ac.kyonggi.cs.handler.vo.user."+ type.class_type;
-            Class<?> t = Class.forName(path);
-            UserBean who = (UserBean)t.newInstance();
-            if(who.getClass().getName().equals("kr.ac.kyonggi.cs.handler.vo.user.BigUser")) 
-               copy2(who,it);
-            else
-               copy1(who, it);
-            dao.whoIsLogIn(id);
-            File log = new File(request.getServletContext().getRealPath("/WEB-INF"), "log.txt");
-            BufferedWriter bufWriter = new BufferedWriter(new FileWriter(log, true));
-            bufWriter.write(new Date().toString() + "] " + it.id + "(" + it.name + ")이 로그인하였습니다.\r\n");
-            bufWriter.close();
-            session.setAttribute("user", gson.toJson(who));
-            session.setAttribute("type", gson.toJson(type));
-            session.setAttribute("miss", 0);
-            return "RequestDispatcher:jsp/main/main.jsp";
-         }
-      session.setAttribute("miss",(Integer)session.getAttribute("miss")+1);
-      */
-      return "RequestDispatcher:jsp/main/login.jsp";
-      
-   }
 
-
-   /*void copy1(UserBean it, UserBean copy) {
-      it.id = copy.id;
-      it.name = copy.name;
-      it.gender = copy.gender;
-      it.birth = copy.birth;
-      it.email = copy.email;
-      it.phone = copy.phone;
-      it.type = copy.type;
-      it.reg_date = copy.reg_date;
-      it.myhomeid = copy.myhomeid;
-   }
-   
-   void copy2(UserBean who, UserBean it) {
-      who.id = it.id;
-      who.name = it.name;
-      who.gender = it.gender;
-      who.birth = it.birth;
-      who.email = it.email;
-      who.phone = it.phone;
-      who.type = it.type;
-      who.reg_date = it.reg_date;
-      who.major = it.major; 
-      who.per_id = it.per_id;
-      who.grade = it.grade;
-      who.state = it.state;
-      who.myhomeid = it.myhomeid;
-
-   }*/
+		request.setCharacterEncoding("utf-8");
+	    HttpSession session = request.getSession();
+	    response.setCharacterEncoding("UTF-8");
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter script = response.getWriter();
+	    
+		UserDAO dao = new UserDAO();
+		SHA256 sha = new SHA256();
+		String userID = null;
+		String userPassword = null;
+		String result = null;
+		boolean emailCheck=false;
+		
+		if(request.getParameter("userID") != null) {
+			userID = (String) request.getParameter("userID");
+		}
+		if(request.getParameter("userPassword") != null) {
+			userPassword = (String) request.getParameter("userPassword");
+			userPassword = sha.encryptSHA256(userPassword); // 비밀번호 암호화
+		}
+		
+		int db_result = dao.login(userID, userPassword); //DB에 로그인 검사
+		emailCheck = dao.getUserEmailChecked(userID);
+		
+		if(db_result == 1) {
+			if(emailCheck) {
+				result = "RequestDispatcher:jsp/main/index.jsp"; //로그인 성공 후 메인페이지 이동
+				session.setAttribute("userID", userID); //세션 생성
+				session.setMaxInactiveInterval(15*60); //세션 유효기간 10분
+				System.out.println("로그인 성공");
+				/*
+				script.println("<script>");
+				script.println("alert('로그인 되었습니다.')");
+				script.println("</script>");
+				script.println("location.href = 'Index' ");
+				script.flush();
+				return null;
+				*/
+			}else {
+				result = "RequestDispatcher:jsp/main/loginpage.jsp";
+				System.out.println("이메일 인증을 해주세요");
+			}
+				
+		}else if(db_result == 0) {
+			result = "RequestDispatcher:jsp/main/loginpage.jsp"; //비밀번호 오류로 로그인페이지 이동
+			System.out.println("비밀번호가 잘못되었습니다.");
+			/*
+			script.println("<script>");
+			script.println("alert('비밀번호가 틀립니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			*/
+		}else if(db_result == -1){
+			result = "RequestDispatcher:jsp/main/loginpage.jsp";//존재하지 않는 아이디
+			System.out.println("아이디가 존재하지 않습니다.");
+			/*
+			script.println("<script>");
+			script.println("alert('존재하지 않는 아이디입니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			*/
+		}else {
+			System.out.println("데이터 베이스 오류입니다."); // DB오류
+			/*
+			script.println("<script>");
+			script.println("alert('데이터베이스 오류가 발생했습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			*/
+		}
+		//script.flush();
+		return result;
+	}
 
 }

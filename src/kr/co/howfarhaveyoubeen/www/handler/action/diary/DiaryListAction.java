@@ -6,7 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import kr.co.howfarhaveyoubeen.www.common.controller.Action;
-import kr.co.howfarhaveyoubeen.www.handler.dao.DiaryDAO;
+import kr.co.howfarhaveyoubeen.www.handler.dao.diary.DiaryDAO;
+import kr.co.howfarhaveyoubeen.www.handler.vo.Diarydbbean;
 
 public class DiaryListAction implements Action{
 
