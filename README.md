@@ -1,6 +1,6 @@
 # Howfarhaveyoubeen
 # 어디까지 가봤니
-# made by 태형, 주용, 건욱
+made by 태형, 주용, 건욱
 ver 0.0.2 2018-11-26 19:10
 
 
