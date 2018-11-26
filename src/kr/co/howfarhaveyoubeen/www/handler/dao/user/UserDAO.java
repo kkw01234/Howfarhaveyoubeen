@@ -51,7 +51,7 @@ public class UserDAO {
 			return -2; //DB ����
 		}
 
-		public int join(Userdbbean user) {
+		public boolean join(Userdbbean user) {
 			String SQL = "INSERT INTO USERDB VALUES(?,?,?,?,false,?)";
 			Connection conn = Config.getInstance().sqlLogin();
 			PreparedStatement pstmt = null;
@@ -62,11 +62,12 @@ public class UserDAO {
 				pstmt.setString(3,  user.getUserName());
 				pstmt.setString(4,  user.getUserEmail());
 				pstmt.setString(5,  user.getEmailCode());
-				return pstmt.executeUpdate();
+				pstmt.executeUpdate();
+				return true;
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
-			return 1;
+			return false;
 		}
 		
 		

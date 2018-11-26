@@ -127,12 +127,12 @@
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
             <h6 class="dropdown-header">다이어리 쓰기:</h6>
-            <a class="dropdown-item" href="#">항공권 인식</a>
-            <a class="dropdown-item" href="#">항공권 없이 쓰기</a>
+            <a class="dropdown-item" href="imageuploadpage.do">항공권 인식</a>
+            <a class="dropdown-item" href="diarywriter.do">항공권 없이 쓰기</a>
             <div class="dropdown-divider"></div>
             <h6 class="dropdown-header">나의 여행 다이어리:</h6>
             <a class="dropdown-item" href="diarylist.do">리스트</a>
-            <a class="dropdown-item" href="diarylist.do">지도</a>
+            <a class="dropdown-item" href="diarymaplist.do">지도</a>
           </div>
         </li>
         <li class="nav-item">

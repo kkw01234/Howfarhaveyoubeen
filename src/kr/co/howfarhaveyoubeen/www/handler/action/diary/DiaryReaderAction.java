@@ -13,11 +13,13 @@ public class DiaryReaderAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("diaryID");
-		System.out.println(id);
+		String diaryid = request.getParameter("diaryID");
+		
 		Gson gson = new Gson();
 		DiaryDAO diarydao = DiaryDAO.getInstance();
-		request.setAttribute("diaryread", diarydao.getDiary(id));
+		request.setAttribute("diaryread", diarydao.getDiary(diaryid));
+		request.setAttribute("coordinates", diarydao.getDiaryCoordinates(diaryid));
+		request.setAttribute("diaryID", diaryid);
 		return "RequestDispatcher:jsp/diary/readdiary.jsp";
 	}
 

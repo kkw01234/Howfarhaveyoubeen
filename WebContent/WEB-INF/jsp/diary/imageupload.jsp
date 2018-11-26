@@ -27,6 +27,50 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap-table.css"/>
+    
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+	function getThumbnailPrivew(html, $target) {
+	    if (html.files && html.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	            $target.css('display', '');
+	            //$target.css('background-image', 'url(\"' + e.target.result + '\")'); // 배경으로 지정시
+	            $target.html('<img src="' + e.target.result + '" border="0" alt=""style="max-width:inherit" />');
+	        }
+	        reader.readAsDataURL(html.files[0]);
+	    }
+	}
+	</script>
+	<style>
+	.filebox label {
+	    display: inline-block;
+	    padding: .5em .75em;
+	    color: #999;
+	    font-size: inherit;
+	    line-height: normal;
+	    vertical-align: middle;
+	    background-color: #fdfdfd;
+	    cursor: pointer;
+	    border: 1px solid #ebebeb;
+	    border-bottom-color: #e2e2e2;
+	    border-radius: .25em;
+	    width:100%;
+	    max-width:100%;
+	}
+ 
+	.filebox input[type="file"] {  /* 파일 필드 숨기기 */
+	    position: absolute;
+	    width: 1px;
+	    height: 1px;
+	    padding: 0;
+	    margin: -1px;
+	    overflow: hidden;
+	    clip:rect(0,0,0,0);
+	    border: 0;
+	}
+</style>
 
   </head>
 
@@ -143,72 +187,34 @@
       </ul>
 
       <div id="content-wrapper">
-
         <div class="container-fluid">
-
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Overview</li>
-          </ol>
-
-        
-
-          <!-- Page Content -->
+        <br>
+         <!-- Page Content -->
           <div id="main" class="wrapper style1">
-					<div class="container">
-						<header class="major">
-							<h2>나의 여행 다이어리</h2>
-							<p>나의 여행 다이어리를 읽어보는 공간</p>
-						</header>
-
-						<!-- Table -->
-							<section><div>
-									<button id="switch" style="float:right"type="button" class="btn btn-default" >
-                                 		   전환
-                                    </button>
-                                
-                                    </div>
-                                    <br>
-								<div id="maincontent" class="table-wrapper">
-									<table class="boardtable" id="table"
-										data-toggle="table"
-										data-pagination="true"
-										data-search="false"
-										data-page-list="[10]">
-										<thead>
-											<tr class="table-style">
-												<th data-field="id" data-sortabel="true">번호</th>
-                      							<th data-field="diaryTitle" data-sortable="true">제목</th>
-                     							<th data-field="diaryDate" data-sortable="true">작성일</th>
-                      							<th data-field="startPoint" data-sortable="true">출발지역</th>
-                      							<th data-field="endPoint" data-sortable="true">여행지역</th>
-											</tr>
-										</thead>
-									</table>
-								</div>
-								<br>
-								<div style="float:right"><!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
-										<a>
-										<button type="button" class="btn btn-default">
-                                      	  항공권 인식
-                                        </button>
-                                        </a>
-                                        <a>
-                                        <button type="button" class="btn btn-default">
-                                   	     쓰기
-                                        </button>
-                                        </a>
-								</div>
-							</section>
+				<div class="container">
+					<header class="major">
+							<h2>항공권 인식</h2>
+							<p>아래의 업로드 버튼을 클릭하여 항공권을 인식해주세요.</p>
+					</header>
+					
+				<section>
+				
+					<form name="form" id="form" action="imageupload.do" method="post" enctype="multipart/form-data" autocomplete="off">
+ 					   <div class="filebox" >
+      				  <label for="cma_file">사진 인증샷 업로드</label>
+    				    <input type="file" name="imagefile" id="cma_file" accept="image/*" capture="camera" onchange="getThumbnailPrivew(this,$('#cma_image'))" />
+     				    <button type="submit" class="btn btn-primary">인식</button>
+    			  
+    			    <br /><br />
+   				      
+   				      <div id="cma_image" style="width:100%;max-width:100%;height:auto; object-fit: contain; border:1px solid #000;display:none;"></div>
+   						
+  					  </div>
+					</form>				
+				</section>
 				</div>
-
         </div>
-        <div id="googlemaps"></div>
-        <!-- /.container-fluid -->
-
+       
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
@@ -229,24 +235,7 @@
       <i class="fas fa-angle-up"></i>
     </a>
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -260,59 +249,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/bootstrap-table.js"></script>
     <script src="js/bootstrap-table-cookie.js"></script>
-<script>
-function formatDate2(date){
-	var d = date.split(" ");
-	var month = d[0].split("월")[0];//이코드 수정 필요할듯 싶습니다.
-	var day = d[1].split(",")[0];
-	var year = d[2];
-	if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-	var newdate = year+"-"+month+"-"+day;
-	return newdate;
-}
-	
-	function callSetupTableView(){
-		$('#table').bootstrapTable('append',data());
-		$('#table').bootstrapTable('refresh');
-	}
-	
-	function data(){
-		var diarylist= <%=diarylist%>;
-		var rows = [];
-		for(var i=0;i<diarylist.length;i++){//아직 수정필요
-				var value = diarylist[i];
-				var startpoint = value.startPoint.split(",");
-				var endpoint = value.endPoint.split(",");
-				var a,b;
-				if(startpoint.length >1){
-					a=startpoint[startpoint.length-2]+" "+startpoint[startpoint.length-1];
-				}else
-					a=value.startPoint;
-				if(endpoint.length >1){
-					b=endpoint[endpoint.length-2]+" "+endpoint[endpoint.length-1]
-				}else
-					b=value.endPoint;
-				rows.push({
-					id : i+1,
-					diaryTitle : '<a href="diaryreader.do?diaryID='+value.diaryID+'">'+value.diaryTitle+'</a>',
-					diaryDate : formatDate2(value.diaryDate),
-					startPoint : a,
-					endPoint :  b
-				});
-		}
-		return rows;
-	}
-	
-	$(document).ready(function(){
-        callSetupTableView();
-     })
-     $('#switch').click(function(){
-   		window.location.href="diarymaplist.do";
-   	})
-	</script>
-	 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChJu-iy9Vs1uUj-hufEP9yT8j86KNViZI&callback=initMap" async defer></script>
+
   </body>
 
 </html>

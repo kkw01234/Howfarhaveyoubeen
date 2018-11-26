@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
     <%
     String diaryread = (String) request.getAttribute("diaryread");
+    String diaryid =(String) request.getAttribute("diaryID");
+    String coordinates = (String) request.getAttribute("coordinates");
     %>
 <!DOCTYPE html>
 <html>
@@ -37,72 +39,7 @@
     <script src="js/sb-admin.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/ckeditor.js"></script>
-    <script>
-    
-    function formatdate2(date){
-    	var d = date.split(" ");
-    	var month = d[0].split("월")[0];
-    	var day = d[1].split(",")[0];
-    	var year = d[2];
-    	
-    	var newdate = year+"-"+month+"-"+day;
-    	return newdate;
-    }
-    
-    
-    $(document).ready(function() {
-		var diaryRead= <%=diaryread%>; //다이어리 디비 저장
-		$('#diaryTitle').val(diaryRead.diaryTitle); //제목출력
-		$('#user').val(diaryRead.userID); //작성자 출력
-		var date = $('#date');
-		var data = diaryRead.diaryDate;
-		
-		console.log(formatdate2(data));
-		$('#date').attr('value',formatdate2(data));
-		
-		//$('#date').val(diaryRead.userID); //날짜 안됨 슈밤
-		$('#startpoint').val(diaryRead.startPoint); //출발지 출력
-		$('#endpoint').val(diaryRead.endPoint); //도착지 출력
-		$('#editor').val(diaryRead.diaryContent); //내용 출력
-    });
 	
-   
-
-</script>
-<script>
-//구글 지도
-var map;
-var image;
-var marker;
-
-function initMap() {
- map = new google.maps.Map(document.getElementById('googlemaps'), {
-  center: {lat: 37.538537, lng:  127.074660}, //위도 경도
-  zoom: 16 //숫자클수록 지도가 자세히보임
- });
-
-  image = new google.maps.MarkerImage( 'http://www.larva.re.kr/home/img/boximage3.png',
-                            new google.maps.Size(60, 60),
-                            '',
-                            '',
-                            new google.maps.Size(60, 60));
-
-   marker = new google.maps.Marker({
-               position: {lat: 37.538537, lng:  127.074660}, // 마커가 위치할 위도와 경도(변수)
-               map: map,
-               icon: image, // 마커로 사용할 이미지(변수)
-               title: '동문회관' // 마커에 마우스 포인트를 갖다댔을 때 뜨는 타이틀
-        });
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=initMap" async defer></script>
-<script>
-	$(document).ready(function() {
-		$('#reset').click(function(){
-			location.href = 'writediary.do?diaryID=1';
-		});
-	});
-</script>	
   </head>
 
   <body id="page-top">
@@ -254,12 +191,14 @@ function initMap() {
                              <div class="row">
                                 <div class="col-sm-9">
                                    <input type="text" class="form-control" id="startpoint" readonly/>
+
                                 </div>
                              </div>
                              <label for="endpoint"> 도착지 : </label>
                              <div class="row">
                                 <div class="col-sm-9">
                                    <input type="text" class="form-control" id="endpoint" readonly>
+                                   
      	                          </div>
                                </div>
                           </div>
@@ -272,9 +211,9 @@ function initMap() {
                        </div>
                        
                 </form>
-                <textarea name="content" id="editor" style="width:100%;height:400px" readonly></textarea>
+                <div id="editor"></div>
                 <div class="text-right">
-                   <button type="button" class ="btn btn-primary" id="reset">수정</button>
+                   <button type="button" class ="btn btn-primary" id="modify">수정</button>
                    <button type="button" class = "btn btn-default" id="back">뒤로</button><!--  -->
                 </div>
                </div>
@@ -322,4 +261,108 @@ function initMap() {
       </div>
     </div>
   </body>
+  <script>
+  $('#modify').click(function(){
+	  	document.location.href = "diarymodifier.do?diaryID=<%=diaryid%>";
+	  })
+  $('#back').click(function(){
+			location.href = 'diarylist.do';
+	})
+  </script>
+      <script>
+    
+    function formatDate2(date){
+    	var d = date.split(" ");
+    	var month = d[0].split("월")[0];//이코드 수정 필요할듯 싶습니다.
+    	var day = d[1].split(",")[0];
+    	var year = d[2];
+    	if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+    	var newdate = year+"-"+month+"-"+day;
+    	return newdate;
+    }
+    
+    function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+           hour = d.getHours();
+           minute = d.getMinutes();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return [year, month, day].join('-') + ' ' + [hour, minute].join(':');
+    } 
+    
+    $(document).ready(function() {
+		var diaryRead= <%=diaryread%>; //다이어리 디비 저장
+		$('#diaryTitle').val(diaryRead.diaryTitle); //제목출력
+		$('#user').val(diaryRead.userID); //작성자 출력
+		var date = $('#date');
+		var data = diaryRead.diaryDate;
+		
+		//console.log(formatdate2(data));
+		$('#date').attr('value',formatDate(data));
+		
+		//$('#date').val(diaryRead.userID); //날짜 안됨 슈밤
+		$('#startpoint').val(diaryRead.startPoint); //출발지 출력
+		$('#endpoint').val(diaryRead.endPoint); //도착지 출력
+		$('#editor').append(diaryRead.diaryContent); //내용 출력
+    });
+	
+    
+
+</script>
+<script>
+//구글 지도
+var map =null;
+  var marker =null;
+  var startp = null;
+  var endp =null;
+  var addrArr = [];
+  var stopover = [];
+  var markers = [];
+  var markerloc = [];
+  var coordinates = <%=coordinates%>;
+  console.log(coordinates[1].latitude);
+  console.log(coordinates[1].longitude);
+  function startMap(){
+  map = new google.maps.Map(document.getElementById('googlemaps'), {
+ 		zoom: 6,
+  		center: {lat: Math.floor(coordinates[1].latitude), lng: Math.floor(coordinates[1].longitude)}
+  })
+  
+  for(var i =0 ;i<coordinates.length;i++){
+	  var coo = coordinates[i];
+	  if(coo.point == "start"){
+		  startp=coo.region;
+		  addrArr[0]= startp;
+		  markerloc[0] = new google.maps.LatLng(coo.latitude,coo.longitude);
+		  addMarker(map,markerloc[0],"start",0);
+	  }else if(coo.point == "end"){
+		  endp=coo.region;
+		  addrArr[1] = endp;
+		  markerloc[1] = new google.maps.LatLng(coo.latitude,coo.longitude);
+		  addMarker(map,markerloc[1],"end",1);
+	  }else if(coo.point == "stopover"){
+		  stopover.push(address);
+		  addrArr.concat(stopover);
+	  }	
+	
+  }
+  }
+  function addMarker(resultsMap,loc,point,iterator){
+ 		console.log("AddMarker : "+iterator);
+ 		markers[iterator] = new google.maps.Marker({
+				map: resultsMap,
+				position: loc,
+				title:point
+		});
+ 		console.log(markers);
+ 	}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=startMap" async defer></script>
+
 </html>

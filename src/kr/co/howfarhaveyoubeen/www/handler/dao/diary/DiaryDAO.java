@@ -3,6 +3,7 @@ package kr.co.howfarhaveyoubeen.www.handler.dao.diary;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -36,7 +37,6 @@ public class DiaryDAO {
 		try {
 			QueryRunner queryRunner = new QueryRunner();
 			map = queryRunner.query(conn, "Select * FROM diarydb WHERE userID=?",new MapListHandler(),id);
-			//System.out.println(map);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -48,7 +48,6 @@ public class DiaryDAO {
 	public String insertDiary(JsonElement jsonelement) throws SQLException {//다이어리한테 추가
 		String result=null;
 		JsonObject obj= jsonelement.getAsJsonObject();
-		System.out.println(obj);
 		String diaryTitle =obj.get("diaryTitle").getAsString();
 		String user = obj.get("user").getAsString();
 		String date =obj.get("date").getAsString();
@@ -69,8 +68,9 @@ public class DiaryDAO {
 			int diaryid = diaryID.get(diaryID.size()-1);
 			queryRunner.update(conn,"INSERT INTO coordinates(diaryID,userID,point,region,latitude,longitude) VALUES(?,?,?,?,?,?)",diaryid,user,"start",startpoint,startplat,startplng);//출발지 좌표저장
 			queryRunner.update(conn,"INSERT INTO coordinates(diaryID,userID,point,region,latitude,longitude) VALUES(?,?,?,?,?,?)",diaryid,user,"end",endpoint,endplat,endplng);//도착지 좌표저장
-			result ="success";
+			result ="Success";
 		}catch(SQLException e) {
+			result="Fail";
 			e.printStackTrace();
 		}finally {
 			 DbUtils.close(conn);
@@ -88,6 +88,73 @@ public class DiaryDAO {
 			e.printStackTrace();
 		}
 		Gson gson = new Gson();
-		return 	gson.toJson(map.get(0));
+		
+		
+		return gson.toJson(map.get(0));
+	}
+	
+	public String getDiaryCoordinates(String id) throws SQLException {//각 다이어리에 있는 좌표 받아오기
+		Connection conn = Config.getInstance().sqlLogin();
+		List<Map<String, Object>> coordinates = null;
+		try {
+			QueryRunner queryRunner = new QueryRunner();
+			coordinates = queryRunner.query(conn, "Select * From coordinates WHERE diaryID=?", new MapListHandler(),id);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DbUtils.close(conn);
+		}
+		Gson gson = new Gson();
+		
+		return gson.toJson(coordinates);
+	}
+
+	public String modifyDiary(JsonElement element) throws SQLException { //다이어리 수정
+		String result = null;
+		Connection conn =Config.getInstance().sqlLogin();
+		JsonObject obj= element.getAsJsonObject();
+		int diaryid = obj.get("diaryID").getAsInt();
+		String diaryTitle =obj.get("diaryTitle").getAsString();
+		String user = obj.get("user").getAsString();
+		String date =obj.get("date").getAsString();
+		String startpoint = obj.get("startpoint").getAsString();
+		String endpoint =obj.get("endpoint").getAsString();
+		String content = obj.get("content").getAsString();
+		String startplat=obj.get("startplat").getAsString();
+		String startplng=obj.get("startplng").getAsString();
+		String endplat=obj.get("endplat").getAsString();
+		String endplng=obj.get("endplng").getAsString();
+		try {
+			QueryRunner queryRunner = new QueryRunner();
+			queryRunner.update(conn,"UPDATE diarydb SET diaryTitle=?,diaryDate=?,startpoint=?,endpoint=?,diaryContent=? WHERE diaryID=? AND userID=?",diaryTitle,date,startpoint,endpoint,content,diaryid,user);
+			queryRunner.update(conn,"UPDATE coordinates SET region=?,latitude=?,longitude=?  WHERE point='start' AND diaryID =? AND userID=?",startpoint,startplat,startplng,diaryid,user);
+			queryRunner.update(conn,"UPDATE coordinates SET region=?,latitude=?,longitude=?  WHERE point='end' AND diaryID =? AND userID=?",endpoint,endplat,endplng,diaryid,user);
+			result="Success";
+		}catch(SQLException e) {
+			e.printStackTrace();
+			result="Fail";
+		}finally {
+			DbUtils.close(conn);
+		}
+		return result;
+	}
+	
+	public String getUserCoordinates(String id) throws SQLException { // 각 ID마다 모든 좌표받아오기
+		Connection conn = Config.getInstance().sqlLogin();
+		List<Map<String, Object>> map = null;
+		try {
+			QueryRunner queryRunner = new QueryRunner();
+			map=queryRunner.query(conn, "Select * FROM coordinates WHERE userID=?",new MapListHandler(),id);
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			DbUtils.close(conn);
+		}
+		
+		Gson gson = new Gson();
+		
+		
+		return gson.toJson(map);
+		
 	}
 }

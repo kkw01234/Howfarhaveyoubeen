@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
+ <% String userID = (String) request.getAttribute("userID"); %>
 <!DOCTYPE html>
 <html>
 
@@ -275,41 +275,52 @@
 		
    
 <script>
-	
+	var theEditor = null;
 	$(document).ready(function(){
 		$('#back').click(function(){
 			parent.history.back();
 			return false;
 		})
+		 ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게
+			   ckfinder:{
+				uploadUrl :"ckeditorupload.do"
+			   },   		
+		   }).then( editor => {
+				theEditor=editor;
+		   }).catch (err =>{
+			   console.error(err.stack);
+		   }
+		   );
+		 
 	})
 	
-		
-	
-	var ckcontent = null;
-   ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게
-	   ckfinder:{
-		uploadUrl :"ckeditorupload.do"
-	   },   		
-   }).then( editor => {
-		ckdata=editor.getData();
-   }).catch (err =>{
-	   console.error(err.stack);
+  
+   function getDataFromTheEditor(){//CKEDITOR 값
+	   return theEditor.getData();
    }
-   );
- 
+   
    var markerloc = [];
    function uploadDiary(){//uploadDiary
+		
     	var obj = new Object();
     	obj.diaryTitle=$('#diaryTitle').val();
 	  	obj.user=$('#user').val();
 	  	obj.date=$('#date').val();
 	  	obj.startpoint=$('#start').val();
-	  	obj.startplat=markerloc[0].lat();
-	  	obj.startplng=markerloc[0].lng();
-	  	obj.endpoint=$('#end').val();
-	  	obj.endplat=markerloc[1].lat();
+	  	obj.endpoint=$('#end').val();	  
+    	obj.content=getDataFromTheEditor();
+    	if(obj.diaryTitle =='' || obj.user==''|| obj.date == '' || obj.startpoint == '' || obj.endpoint == '' ||obj.content == ''){
+    		alert("모두 입력해 주세요!");
+    		return;
+    	}
+    	if(markerloc[0] == null ||markerloc[1] == null || markerloc[0].lat() == '' ||markerloc[0].lng() == '' || markerloc[1].lat() == '' || markerloc[1].lng() == ''){
+    	   	alert("모두 확인 버튼을 눌러주세요!");
+    	   	return;
+    	}
+    	obj.startplat=markerloc[0].lat();
+   	  	obj.startplng=markerloc[0].lng();
+   		obj.endplat=markerloc[1].lat();
 	  	obj.endplng=markerloc[1].lng();
-    	obj.content=ckdata;
     	var jsonobj=JSON.stringify(obj);
 	    $.ajax({
 	   		url : "ajaxdiary.do",
@@ -367,20 +378,12 @@
         		  
          	  var geocoder = new google.maps.Geocoder();
            			geocodeAddress(geocoder, map,point,ace);
-           			showMarkers();
+           			//showMarkers();
         	  };
         }
        
 
        function geocodeAddress(geocoder, resultsMap,point,ace) {
-         	/*
-          	if(markers.length != 0)
-    	   		clearMarkers();
-         	*/
-         	//console.log(markers);
-         	//console.log(addrArr);
-         
-         	//console.log("길이 : "+addrArr.length);     		
          		geocoder.geocode({'address': addrArr[ace]}, function(results, status) {
            			if (status === 'OK') { //잘 맞게 돌아오면		
           				var loc = results[0].geometry.location;//lat(),lng();
@@ -416,6 +419,11 @@
     	   console.log(point);
     	   var pointer = "#"+point;
     	   var pointerb = pointer+"b";
+    	   if(point =='start'){
+    		  markerloc[0] = null;
+    	   }else if(point == 'end'){
+    		   markerloc[1] = null;
+    	   }
     	   $(pointer).attr("disabled",false);
       	   $(pointerb).html('<button id="'+point+'button" type="button" class="btn btn-primary" onclick="citytopoint(\''+point+'\')">확인</button>');
        }
@@ -446,7 +454,11 @@
    			setMapOnAll(null);
    		}
   
-
+   		$(document).ready(function(){
+   			var userID = "<%=userID%>";
+   	        $('#user').attr('value',userID);
+   	        $('#user').attr('readonly', true);
+   	     })
  
 
  

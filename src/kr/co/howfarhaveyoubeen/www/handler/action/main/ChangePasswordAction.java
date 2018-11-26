@@ -1,5 +1,6 @@
 package kr.co.howfarhaveyoubeen.www.handler.action.main;
 
+import java.io.PrintWriter;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,8 @@ public class ChangePasswordAction implements Action{//changepassword.do
 
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		PrintWriter script = response.getWriter();
 		UserDAO dao = new UserDAO();
 		SHA256 sha = new SHA256();
 		
@@ -50,17 +53,29 @@ public class ChangePasswordAction implements Action{//changepassword.do
 			//비밀번호 변경 결과
 			if(changePasswordResult) {
 				System.out.println("비밀번호가 정상적으로 변경되었습니다.");
-				result = "RequestDispatcher:jsp/main/index.jsp";
+				script.println("<script>");
+				script.println("alert('비밀번호가 정상적으로 변경되었습니다.')");
+				script.println("history.back()");
+				script.println("</script>");
+				return null;
 			}else {
 				System.out.println("비밀번호 변경에 오류가 생겼습니다.");
 				result = "RequestDispatcher:jsp/main/changepassword.jsp";
 			}
 		}else if(checkPasswordResult==0){
 			System.out.println("현재 비밀번호가 맞지 않습니다.");
-			result = "RequestDispatcher:jsp/main/changepassword.jsp";
+			script.println("<script>");
+			script.println("alert('현재 비밀번호가 맞지 않습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			return null;
 		}else{
 			System.out.println("DB오류입니다.");
-			result = "RequestDispatcher:jsp/main/changepassword.jsp";
+			script.println("<script>");
+			script.println("alert('DB오류입니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			return null;
 		}
 			
 		return result;

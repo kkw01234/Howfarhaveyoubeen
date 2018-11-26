@@ -19,6 +19,7 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+ 
 </head>
 <%
 	String userID = null;
@@ -71,7 +72,7 @@
     <div class="card card-register mx-auto mt-5">
       <div class="card-header" style="text-align: center;">회원가입</div>
       <div class="card-body">
-        <form method="post" action="register.do">
+        <form name="wform" method="post" action="register.do">
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" id="inputID" name="userID" class="form-control" placeholder="ID" required="required">
@@ -90,6 +91,7 @@
                     <div class="form-label-group">
                       <input type="password" id="confirmPassword" name="userPasswordCheck" class="form-control" placeholder="Confirm password" required="required">
                         <label for="confirmPassword">비밀번호 확인</label>
+                        
                       </div>
                     </div>
                   </div>

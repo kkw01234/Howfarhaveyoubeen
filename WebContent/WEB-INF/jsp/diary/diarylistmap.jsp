@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%
-	String diarylist = (String) request.getAttribute("diarylist");
-	%>
+  <%
+  	String diarylist = (String) request.getAttribute("diarylist");
+  	String Allcoordinates = (String) request.getAttribute("Allcoordinates");
+  %>  
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +19,7 @@
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
@@ -26,8 +28,15 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/bootstrap-table.css"/>
+	<!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin.min.js"></script>
   </head>
 
   <body id="page-top">
@@ -40,7 +49,7 @@
         <i class="fas fa-bars"></i>
       </button>
 
-<!-- Navbar Search -->
+      <!-- Navbar Search -->
       <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
@@ -83,10 +92,9 @@
             <i class="fas fa-user-circle fa-fw"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-            <a class="dropdown-item" href="loginpage.do">로그인</a>
-            <a class="dropdown-item" href="register.do">회원가입</a>
-            <a class="dropdown-item" href="forgot-password.do">아이디/비밀번호 찾기</a>
-            <div class="dropdown-divider"></div><!-- 우선 삭제 안해놓을게 -->
+            <a class="dropdown-item" href="#">Settings</a>
+            <a class="dropdown-item" href="#">Activity Log</a>
+            <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
           </div>
         </li>
@@ -98,47 +106,37 @@
 
       <!-- Sidebar -->
       <ul class="sidebar navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="Index">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Mainpage</span>
+            <span>Dashboard</span>
           </a>
         </li>
-        
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-fw fa-folder"></i>
-            <span>다이어리</span>
+            <span>Pages</span>
           </a>
           <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-            <h6 class="dropdown-header">다이어리 쓰기:</h6>
-            <a class="dropdown-item" href="#">항공권 인식</a>
-            <a class="dropdown-item" href="diarywriter.do">항공권 없이 쓰기</a>
+            <h6 class="dropdown-header">Login Screens:</h6>
+            <a class="dropdown-item" href="login.html">Login</a>
+            <a class="dropdown-item" href="register.html">Register</a>
+            <a class="dropdown-item" href="forgot-password.html">Forgot Password</a>
             <div class="dropdown-divider"></div>
-            <h6 class="dropdown-header">나의 여행 다이어리:</h6>
-            <a class="dropdown-item" href="diarylist.do">리스트</a>
-            <a class="dropdown-item" href="diarylist.do">지도</a>
+            <h6 class="dropdown-header">Other Pages:</h6>
+            <a class="dropdown-item" href="404.html">404 Page</a>
+            <a class="dropdown-item active" href="blank.html">Blank Page</a>
           </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>공유하기</span></a>
+            <span>Charts</span></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="tables.html">
             <i class="fas fa-fw fa-table"></i>
-            <span>공유된 다이어리 보기(한번 테스트용)</span></a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>차트예시(우선 놔둠)</span></a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>테이블이용예시</span></a>
+            <span>Tables</span></a>
         </li>
       </ul>
 
@@ -149,71 +147,33 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
+              <a href="index.html">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">Overview</li>
+            <li class="breadcrumb-item active">Blank Page</li>
           </ol>
 
-        
-
-          <!-- Page Content -->
-          <div id="main" class="wrapper style1">
-					<div class="container">
-						<header class="major">
-							<h2>나의 여행 다이어리</h2>
-							<p>나의 여행 다이어리를 읽어보는 공간</p>
-						</header>
-
-						<!-- Table -->
-							<section><div>
-									<button id="switch" style="float:right"type="button" class="btn btn-default" >
-                                 		   전환
-                                    </button>
-                                
-                                    </div>
-                                    <br>
-								<div id="maincontent" class="table-wrapper">
-									<table class="boardtable" id="table"
-										data-toggle="table"
-										data-pagination="true"
-										data-search="false"
-										data-page-list="[10]">
-										<thead>
-											<tr class="table-style">
-												<th data-field="id" data-sortabel="true">번호</th>
-                      							<th data-field="diaryTitle" data-sortable="true">제목</th>
-                     							<th data-field="diaryDate" data-sortable="true">작성일</th>
-                      							<th data-field="startPoint" data-sortable="true">출발지역</th>
-                      							<th data-field="endPoint" data-sortable="true">여행지역</th>
-											</tr>
-										</thead>
-									</table>
-								</div>
-								<br>
-								<div style="float:right"><!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
-										<a>
-										<button type="button" class="btn btn-default">
-                                      	  항공권 인식
-                                        </button>
-                                        </a>
-                                        <a>
-                                        <button type="button" class="btn btn-default">
-                                   	     쓰기
-                                        </button>
-                                        </a>
-								</div>
-							</section>
-				</div>
+          <!-- Page Content 수정파트 -->
+          <div class="card mb-3">
+            	<div class="card-header">다이어리 리스트</div>
+                <div class="card-body" style="height:500px">
+          			<div class="row">
+          				<div id="googlemaps" class="col-md-8 col-sm-6" style="width:100%;height:-webkit-fill-available;overflow:auto;">
+          		
+          				</div>
+          				<div class="col-md-4 col-sm-6" id="text">
+          				</div>
+          			</div>
+          		</div>
+          </div>
 
         </div>
-        <div id="googlemaps"></div>
         <!-- /.container-fluid -->
 
         <!-- Sticky Footer -->
         <footer class="sticky-footer">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
+              <span>Copyright Â© Your Website 2018</span>
             </div>
           </div>
         </footer>
@@ -236,7 +196,7 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
+              <span aria-hidden="true">Ã</span>
             </button>
           </div>
           <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
@@ -247,72 +207,77 @@
         </div>
       </div>
     </div>
-
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap-table.js"></script>
-    <script src="js/bootstrap-table-cookie.js"></script>
-<script>
-function formatDate2(date){
-	var d = date.split(" ");
-	var month = d[0].split("월")[0];//이코드 수정 필요할듯 싶습니다.
-	var day = d[1].split(",")[0];
-	var year = d[2];
-	if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-	var newdate = year+"-"+month+"-"+day;
-	return newdate;
-}
-	
-	function callSetupTableView(){
-		$('#table').bootstrapTable('append',data());
-		$('#table').bootstrapTable('refresh');
-	}
-	
-	function data(){
-		var diarylist= <%=diarylist%>;
-		var rows = [];
-		for(var i=0;i<diarylist.length;i++){//아직 수정필요
-				var value = diarylist[i];
-				var startpoint = value.startPoint.split(",");
-				var endpoint = value.endPoint.split(",");
-				var a,b;
-				if(startpoint.length >1){
-					a=startpoint[startpoint.length-2]+" "+startpoint[startpoint.length-1];
-				}else
-					a=value.startPoint;
-				if(endpoint.length >1){
-					b=endpoint[endpoint.length-2]+" "+endpoint[endpoint.length-1]
-				}else
-					b=value.endPoint;
-				rows.push({
-					id : i+1,
-					diaryTitle : '<a href="diaryreader.do?diaryID='+value.diaryID+'">'+value.diaryTitle+'</a>',
-					diaryDate : formatDate2(value.diaryDate),
-					startPoint : a,
-					endPoint :  b
-				});
-		}
-		return rows;
-	}
-	
+	<script>
+	/*
 	$(document).ready(function(){
-        callSetupTableView();
-     })
-     $('#switch').click(function(){
-   		window.location.href="diarymaplist.do";
-   	})
+		
+	})
+	*/
+	function formatDate2(date){//이코드 수정 필요할듯 싶습니다.
+    	var d = date.split(" ");
+    	var month = d[0].split("월")[0];
+    	var day = d[1].split(",")[0];
+    	var year = d[2];
+    	if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+    	var newdate = year+"-"+month+"-"+day;
+    	return newdate;
+    }
+	
+	var map =null;
+	var Allcoordinates = <%=Allcoordinates%>;
+	var diarylist = <%=diarylist%>;
+	var markers = [];
+	function initMap(){//구글맵 callback
+		map = new google.maps.Map(document.getElementById('googlemaps'),{
+			zoom : 4,
+			center : {lat :0.000, lng: 0.000}//오류났을경우 좌표
+		});
+		var markersloc = [];
+		for(var i=0;i<Allcoordinates.length;i++){ //회의내용 출발지-도착지에서 도착지만 띄우게??
+			var coo = Allcoordinates[i];
+			if(coo.point=="end"){
+				var latlng = new google.maps.LatLng(coo.latitude,coo.longitude);
+				addMarker(map,latlng,null,i);
+			}
+		}
+	}
+	
+	function addMarker(resultsMap,loc,point,iterator){//마커하나씩 추가
+   		markers[iterator] = new google.maps.Marker({
+				map: resultsMap,
+				position: loc
+		});
+   		clickListener(iterator);
+   		resultsMap.setCenter(loc); 
+   	}
+	var b=null;
+	function clickListener(iterator){//clicklistener (수정필요)
+		google.maps.event.addListener(markers[iterator] , "click", function() {//클릭이벤트 발생시
+			var diary = Allcoordinates[iterator].diaryID;
+			for(var j=0;j<diarylist.length;j++){
+				if(diary == diarylist[j].diaryID){
+					b = diarylist[j].diaryID;
+					var a = '<div id="title"><h2> 제목 : '+diarylist[j].diaryTitle+'</h2></div>'; //제목설정
+					a+= '<div>날짜 : '+ formatDate2(diarylist[j].diaryDate)+'</div>';
+					a+= '<div>지역 : '+ diarylist[j].endPoint+'</div>';
+					a+= '내용 : <br><div>'+diarylist[j].diaryContent+'</div>';
+					a+= '<div class="text-right"><button id="modify" type="button" class ="btn btn-primary" onclick ="modify()">수정</button></div>'//내용설정
+					$('#text').html(a);
+				}	
+			}
+	    	
+		});
+	} 
+	 $('#modify').click(function(){//이게 왜 인식이 안되는지 모르겠음
+		  	document.location.href = "diarymodifier.do?diaryID="+b;
+		  })
+	function modify(){//똑같은 코드
+		 document.location.href = "diarymodifier.do?diaryID="+b;
+	 }
 	</script>
-	 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChJu-iy9Vs1uUj-hufEP9yT8j86KNViZI&callback=initMap" async defer></script>
+    
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=initMap" async defer></script>
   </body>
 
 </html>

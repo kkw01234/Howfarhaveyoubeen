@@ -54,47 +54,47 @@ public class LoginAction implements Action{//login.do
 				session.setAttribute("userID", userID); //세션 생성
 				session.setMaxInactiveInterval(15*60); //세션 유효기간 10분
 				System.out.println("로그인 성공");
-				/*
-				script.println("<script>");
-				script.println("alert('로그인 되었습니다.')");
-				script.println("</script>");
-				script.println("location.href = 'Index' ");
-				script.flush();
-				return null;
-				*/
 			}else {
 				result = "RequestDispatcher:jsp/main/loginpage.jsp";
 				System.out.println("이메일 인증을 해주세요");
+				script.println("<script>");
+				script.println("alert('이메일 인증을 해주세요')");
+				script.println("history.back()");
+				script.println("</script>");
+				return null;
 			}
 				
 		}else if(db_result == 0) {
 			result = "RequestDispatcher:jsp/main/loginpage.jsp"; //비밀번호 오류로 로그인페이지 이동
 			System.out.println("비밀번호가 잘못되었습니다.");
-			/*
+			
 			script.println("<script>");
 			script.println("alert('비밀번호가 틀립니다.')");
 			script.println("history.back()");
 			script.println("</script>");
-			*/
+			return null;
+			
 		}else if(db_result == -1){
 			result = "RequestDispatcher:jsp/main/loginpage.jsp";//존재하지 않는 아이디
 			System.out.println("아이디가 존재하지 않습니다.");
-			/*
+			
 			script.println("<script>");
 			script.println("alert('존재하지 않는 아이디입니다.')");
 			script.println("history.back()");
 			script.println("</script>");
-			*/
+			return null;
+			
 		}else {
+			result = "RequestDispatcher:jsp/main/loginpage.jsp";
 			System.out.println("데이터 베이스 오류입니다."); // DB오류
-			/*
+			
 			script.println("<script>");
 			script.println("alert('데이터베이스 오류가 발생했습니다.')");
 			script.println("history.back()");
 			script.println("</script>");
-			*/
+			return null;
+			
 		}
-		//script.flush();
 		return result;
 	}
 

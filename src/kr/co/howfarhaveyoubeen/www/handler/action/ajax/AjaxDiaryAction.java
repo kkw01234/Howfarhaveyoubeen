@@ -15,17 +15,20 @@ public class AjaxDiaryAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
 		Gson gson = new Gson();
 		String req= request.getParameter("req");
 		String data = request.getParameter("data");
 		//HttpSession session = request.getSession();
 		String result=null;
+		JsonParser parser = new JsonParser();
+		JsonElement element = parser.parse(data);//String을 Jsonelement로
 		switch(req) {
 		case "writediary":
-			JsonParser parser = new JsonParser();
-			JsonElement element = parser.parse(data);
 			result = DiaryDAO.getInstance().insertDiary(element);
 			break;
+		case "modifydiary":
+			result = DiaryDAO.getInstance().modifyDiary(element);
 		}
 		return result;
 	}

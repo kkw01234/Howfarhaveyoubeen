@@ -1,6 +1,6 @@
 package kr.co.howfarhaveyoubeen.www.handler.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Diarydbbean {
 	private int diaryID;
