@@ -39,7 +39,7 @@ public class DiaryDAO {
 		List<Map<String,Object>> map = null;
 		try {
 			QueryRunner queryRunner = new QueryRunner();
-			map = queryRunner.query(conn, "Select * FROM diaryid WHERE userID=?",new MapListHandler(),id);
+			map = queryRunner.query(conn, "Select * FROM diarydb WHERE userID=?",new MapListHandler(),id);
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
