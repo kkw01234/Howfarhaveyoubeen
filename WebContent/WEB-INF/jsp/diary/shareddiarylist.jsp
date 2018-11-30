@@ -169,8 +169,6 @@ function formatDate2(date){
      })
     
 	</script>
-	 
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChJu-iy9Vs1uUj-hufEP9yT8j86KNViZI&callback=initMap" async defer></script>
   </body>
 
 </html>
