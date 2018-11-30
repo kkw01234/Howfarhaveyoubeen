@@ -2,6 +2,7 @@ package kr.co.howfarhaveyoubeen.www.handler.action.diary;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
@@ -14,9 +15,15 @@ public class DiaryReaderAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		String diaryid = request.getParameter("diaryID");
-		
+		HttpSession session = request.getSession();
+		if(session.getAttribute("userID")==null) {
+			return "RequestDispatcher:jsp/error/404.jsp";
+		}
 		Gson gson = new Gson();
 		DiaryDAO diarydao = DiaryDAO.getInstance();
+		String result=null;
+		
+		result = diarydao.updateReadCount(diaryid);//
 		request.setAttribute("diaryread", diarydao.getDiary(diaryid));
 		request.setAttribute("coordinates", diarydao.getDiaryCoordinates(diaryid));
 		request.setAttribute("diaryID", diaryid);

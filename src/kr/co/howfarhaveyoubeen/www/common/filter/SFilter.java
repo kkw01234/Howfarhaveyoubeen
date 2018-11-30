@@ -29,9 +29,6 @@ public class SFilter implements Filter{
 		response.setHeader("P3P","CP='CAO PSA CONI OTR OUR DEM ONL'");
 		if(session == null) {//session이 없을 경우!!
 			Gson gson = new Gson();
-			//session.setAttribute("type", gson.toJson(UserDAO.getInstance().getType("게스트")));
-			//session.setAttribute("headermenulist", gson.toJson(HomeDAO.getInstance().getHeaderMenu()));
-			//session.setAttribute("menulist", gson.toJson(HomeDAO.getInstance().getMenu()));
 			response.sendRedirect("Index");
     		return;
 		}

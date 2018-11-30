@@ -66,7 +66,7 @@ public class Controller extends HttpServlet{
 				
 				if(forward.contains("RequestDispatcher:"))
 				{
-					String jspName = (forward.split(":")[1]);
+					String jspName = (forward.split(":")[1]);				
 					request.getRequestDispatcher("WEB-INF/" + forward.split(":")[1]).forward(request, response);
 					//System.out.println("/" + jspName);
 				}

@@ -10,6 +10,8 @@ public class Diarydbbean {
 	private Date diaryDate;
 	private String startPoint;
 	private String endPoint;
+	private boolean share;
+	private int readCount;
 	public int getDiaryID() {
 		return diaryID;
 	}
@@ -51,5 +53,17 @@ public class Diarydbbean {
 	}
 	public void setEndPoint(String endPoint) {
 		this.endPoint = endPoint;
+	}
+	public boolean isShare() {
+		return share;
+	}
+	public void setShare(boolean share) {
+		this.share = share;
+	}
+	public int getReadCount() {
+		return readCount;
+	}
+	public void setReadCount(int readCount) {
+		this.readCount = readCount;
 	}
 }
