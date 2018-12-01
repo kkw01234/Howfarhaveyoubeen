@@ -1,41 +1,42 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%
+	pageEncoding="UTF-8"%>
+<%
 	String diarylist = (String) request.getAttribute("diarylist");
 	%>
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
+<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <title>SB Admin - Blank Page</title>
-	<link href="css/bootstrap-table.css" rel="stylesheet">
-	<link href="css/bootstrap-slider.css" rel="stylesheet">
-  </head>
-<body>
-   <jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
-      <div id="content-wrapper">
+<title>SB Admin - Blank Page</title>
+<link href="css/bootstrap-table.css" rel="stylesheet">
+<link href="css/bootstrap-slider.css" rel="stylesheet">
+</head>
+<body id="page-top">
+	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
+	<div id="wrapper">
+		<jsp:include page="../main/sidebar.jsp" flush="false"></jsp:include>
+		<div id="content-wrapper">
 
-        <div class="container-fluid">
+			<div class="container-fluid">
 
-          <!-- Breadcrumbs-->
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item active">Overview</li>
-          </ol>
+				<!-- Breadcrumbs-->
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+					<li class="breadcrumb-item active">Overview</li>
+				</ol>
 
-        
 
-          <!-- Page Content -->
-          <div id="main" class="wrapper style1">
+
+				<!-- Page Content -->
+				<div id="main" class="wrapper style1">
 					<div class="container">
 						<header class="major">
 							<h2>나의 여행 다이어리</h2>
@@ -43,92 +44,53 @@
 						</header>
 
 						<!-- Table -->
-							<section><div>
-									<button id="switch" style="float:right"type="button" class="btn btn-default" >
-                                 		   전환
-                                    </button>
-                                
-                                    </div>
-                                    <br>
-								<div id="maincontent" class="table-wrapper">
-									<table class="boardtable" id="table"
-										data-toggle="table"
-										data-pagination="true"
-										data-search="false"
-										data-page-list="[10]">
-										<thead>
-											<tr class="table-style">
-												<th data-field="id" data-sortabel="true">번호</th>
-                      							<th data-field="diaryTitle" data-sortable="true">제목</th>
-                     							<th data-field="diaryDate" data-sortable="true">작성일</th>
-                      							<th data-field="startPoint" data-sortable="true">출발지역</th>
-                      							<th data-field="endPoint" data-sortable="true">여행지역</th>
-											</tr>
-										</thead>
-									</table>
-								</div>
-								<br>
-								<div class="text-right"><!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
-										<a href="imageuploadpage.do">
-										<button type="button" class="btn btn-default">
-                                      	  항공권 인식
-                                        </button>
-                                        </a>
-                                        <a href="diarywrite.do">
-                                        <button type="button" class="btn btn-default" >
-                                   	     쓰기
-                                        </button>
-                                        </a>
-								</div>
-							</section>
+						<section>
+							<div>
+								<button id="switch" style="float: right" type="button"
+									class="btn btn-default">전환</button>
+
+							</div>
+							<br>
+							<div id="maincontent" class="table-wrapper">
+								<table class="boardtable" id="table" data-toggle="table"
+									data-pagination="true" data-search="false"
+									data-page-list="[10]">
+									<thead>
+										<tr class="table-style">
+											<th data-field="id" data-sortabel="true">번호</th>
+											<th data-field="diaryTitle" data-sortable="true">제목</th>
+											<th data-field="diaryDate" data-sortable="true">작성일</th>
+											<th data-field="startPoint" data-sortable="true">출발지역</th>
+											<th data-field="endPoint" data-sortable="true">여행지역</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+							<br>
+							<div class="text-right">
+								<!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
+								<a href="imageuploadpage.do">
+									<button type="button" class="btn btn-default">항공권 인식</button>
+								</a> <a href="diarywrite.do">
+									<button type="button" class="btn btn-default">쓰기</button>
+								</a>
+							</div>
+						</section>
+					</div>
+
 				</div>
+				<div id="googlemaps"></div>
+				<!-- /.container-fluid -->
 
-        </div>
-        <div id="googlemaps"></div>
-        <!-- /.container-fluid -->
+				<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
+			</div>
+		</div>
+	</div>
 
-        <!-- Sticky Footer -->
-        <footer class="sticky-footer">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright © Your Website 2018</span>
-            </div>
-          </div>
-        </footer>
-
-      </div>
-      <!-- /.content-wrapper -->
-
-    </div>
-    <!-- /#wrapper -->
-
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
-
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
-          <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-            <a class="btn btn-primary" href="login.html">Logout</a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/bootstrap-table.js"></script>
-    <script src="js/bootstrap-table-cookie.js"></script>
-<script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/bootstrap-table.js"></script>
+	<script src="js/bootstrap-table-cookie.js"></script>
+	<script>
 function formatDate2(date){
 	var d = date.split(" ");
 	var month = d[0].split("월")[0];//이코드 수정 필요할듯 싶습니다.
@@ -179,7 +141,7 @@ function formatDate2(date){
    		window.location.href="diarymaplist.do";
    	})
 	</script>
-	 
-  </body>
+
+</body>
 
 </html>

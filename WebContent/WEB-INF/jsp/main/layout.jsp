@@ -1,18 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-
-<head>
-
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
-
-<title>SB Admin - Dashboard</title>
 
 <!-- Bootstrap core CSS-->
 <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -28,16 +15,14 @@
 <!-- Custom styles for this template-->
 <link href="css/sb-admin.css" rel="stylesheet">
 
-</head>
-
 <%
 	String userID = null;
 	if (session.getAttribute("userID") != null)
 		userID = (String) session.getAttribute("userID");
 %>
 
-<body id="page-top">
 
+<header>
 	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
 		<a class="navbar-brand mr-1" href="Index"><img src="image/weblogo_small.png"></img></a>
@@ -90,57 +75,28 @@
 		</ul>
 		
 
-	</nav>
+	</nav>	
+</header>
 
-	<div id="wrapper">
+	<!-- Bootstrap core JavaScript-->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-		<!-- Sidebar -->
-		<ul class="sidebar navbar-nav">
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="pagesDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <i class="fas fa-fw fa-folder"></i> <span>여행 기록하기</span>
-			</a>
-				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-					<a class="dropdown-item" href="imageuploadpage.do">항공권 인식</a> <a
-						class="dropdown-item" href="diarywriter.do">항공권 없이 쓰기</a>
-				</div></li>
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="pagesDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> <i class="fas fa-fw fa-folder"></i> <span>나의 여행기</span>
-			</a>
-				<div class="dropdown-menu" aria-labelledby="pagesDropdown">
-					<a class="dropdown-item" href="diarylist.do">리스트</a> <a
-						class="dropdown-item" href="diarymaplist.do">지도</a>
-				</div></li>
-			<li class="nav-item"><a class="nav-link" href="shareddiarypage.do?seq=1"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>친구의 여행기</span>
-			</a></li>
-		</ul>
-		<!-- /#wrapper -->
-	</div>
-		<!-- Scroll to Top Button-->
-		<a class="scroll-to-top rounded" href="#page-top"> <i
-			class="fas fa-angle-up"></i>
-		</a>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-		<!-- Bootstrap core JavaScript-->
-		<script src="vendor/jquery/jquery.min.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 
-		<!-- Core plugin JavaScript-->
-		<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin.min.js"></script>
 
-		<!-- Page level plugin JavaScript-->
-		<script src="vendor/datatables/jquery.dataTables.js"></script>
-		<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Demo scripts for this page-->
+	<script src="js/demo/datatables-demo.js"></script>
 
-		<!-- Custom scripts for all pages-->
-		<script src="js/sb-admin.min.js"></script>
 
-		<!-- Demo scripts for this page-->
-		<script src="js/demo/datatables-demo.js"></script>
-</body>
 
-</html>
+
+
+
