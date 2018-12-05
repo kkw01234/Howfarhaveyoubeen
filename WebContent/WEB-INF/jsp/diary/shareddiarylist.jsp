@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%
 	String diarylist = (String) request.getAttribute("diarylist");
-
+    
 	%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -83,7 +83,7 @@
 	</div>
 		<!-- /#wrapper -->
 
-
+		
 
 
 		<script src="js/bootstrap.min.js"></script>
@@ -100,12 +100,12 @@ function formatDate2(date){
 	var newdate = year+"-"+month+"-"+day;
 	return newdate;
 }
-
+	
 	function callSetupTableView(){
 		$('#table').bootstrapTable('append',data());
 		$('#table').bootstrapTable('refresh');
 	}
-
+	
 	function data(){
 		var diarylist= <%=diarylist%>;
 		var rows = [];
@@ -136,11 +136,11 @@ function formatDate2(date){
 		}
 		return rows;
 	}
-
+	
 	$(document).ready(function(){
         callSetupTableView();
      })
-
+    
 	</script>
 </body>
 

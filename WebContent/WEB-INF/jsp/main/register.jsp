@@ -68,7 +68,7 @@
 
 </nav>
 
-  <div class="container">
+  <div class="container" id="container">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header" style="text-align: center;">회원가입</div>
       <div class="card-body">
@@ -108,7 +108,7 @@
                         <label for="inputEmail">이메일 주소</label>
                       </div>
                     </div>
-                    <input type="submit" class="btn btn-primary btn-block" value="가입하기">
+                    <input id="login" type="submit" class="btn btn-primary btn-block" value="가입하기">
                     </form>
                     <div class="text-center">
                       <a class="d-block small mt-3" href="loginpage.do" ">로그인 페이지</a>
@@ -117,6 +117,8 @@
                   </div>
                 </div>
               </div>
+              <div id="aftercontainer">
+              </div>
 
               <!-- Bootstrap core JavaScript-->
               <script src="vendor/jquery/jquery.min.js"></script>
@@ -124,7 +126,16 @@
 
               <!-- Core plugin JavaScript-->
               <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
+				
+				<script>
+				$('#login').click(function(){
+					$('#container').hide();
+					var a = null;
+					s
+					a+='<div class="card card-login mx-auto mt-5"><div class="text-center"><br><br>'+$('#inputEmail').val()+'메일을 보내고있습니다.<br> 잠시만 기다려주세요</div></div>';
+					$('#aftercontainer').html(a);
+				})
+				</script>
             </body>
 
           </html>

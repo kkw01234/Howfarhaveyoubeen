@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String startArray = (String) request.getAttribute("startArray");
-	String endArray = (String) request.getAttribute("endArray");
+	String start = (String) request.getAttribute("start");
+	String end = (String) request.getAttribute("end");
 %>
 <!DOCTYPE html>
 <html>
@@ -18,10 +18,6 @@
 	<div id="wrapper">
 		<jsp:include page="../main/sidebar.jsp" flush="false"></jsp:include>
 		<div id="content-wrapper">
-			<div class="text-center">
-				<img src="image/Loading.gif"></img>
-				<p>wait please...</p>
-			</div>
 			<!-- Modal -->
 			<div class="modal fade bs-example-modal-lg" id="locModal"
 				role="dialog" labelledby="myLargeModalLabel">
@@ -74,33 +70,12 @@
 </body>
 <script>
 	var a = 0;
-	var startArr = [];
-	var endArr = [];
+	var startArr = <%=start%>;
+	var endArr = <%=end%>;
 	var map = null;
 	var objArr = [];
 	var markers = [];
-	function ocrload() {
-		$.ajax({
-			url : "ajaxdiary.do",
-			async : false,
-			dataType : "json",
-			type : "post",
-			data : {
-				req : "ocrloading"
-			},
-			success : function(data) {
-				var d = data;
-				for (var i = 0; i < d.length; i++) {
-					if (d[i].start != null) {
-						startArr.push(d[i].start);
-					} else if (d[i].end != null) {
-						endArr.push(d[i].end);
-					}
-				}
-
-			}
-		});
-	}
+	
 
 	function geocodeAddress(geocoder, location, state, a, st) {
 		geocoder.geocode({
@@ -127,7 +102,6 @@
 		});
 	};
 	function Location() {
-		ocrload();
 		initMap();
 		var geocoder = new google.maps.Geocoder();
 		var start = $('#startloc');
@@ -226,6 +200,10 @@
 					}
 				}
 			});
+	
+	$('#locModal').on('hide.bs.modal',function(){
+		window.location.href="imageuploadpage.do";
+	});
 </script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=Location"

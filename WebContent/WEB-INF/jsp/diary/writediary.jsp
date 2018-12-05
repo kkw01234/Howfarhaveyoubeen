@@ -121,28 +121,6 @@
 		</div>
 	</div>
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">Select "Logout" below if you are ready
-					to end your current session.</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">Cancel</button>
-					<a class="btn btn-primary" href="login.html">Logout</a>
-				</div>
-			</div>
-		</div>
-	</div>
 
 
 
@@ -189,6 +167,7 @@
 	    $.ajax({
 	   		url : "ajaxdiary.do",
 	   		type : "post",
+	   		dataType : "json",
 	   		data:{
 	   			req : "writediary",
 	   			data : jsonobj
@@ -203,9 +182,6 @@
    }
    
    
-   
-   
-   	
   
    var marker =null;
    var startp = null;
@@ -223,11 +199,14 @@
 		var userID = "<%=userID%>";
 	        $('#user').attr('value',userID);
 	        $('#user').attr('readonly', true);
-		 ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게
-			   ckfinder:{
+	    	// Editor configuration.
+	      
+		 ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게  
+			 ckfinder:{
 				uploadUrl :"ckeditorupload.do"
 			   },   		
 		   }).then( editor => {
+			    //editor.execute( 'underline' );
 				if(ticket !=null)
 			   		editor.setData('<img src="'+ticket.ticket+'"><br>');
 			   theEditor=editor;
@@ -236,10 +215,10 @@
 			   console.error(err.stack);
 		   }
 		   );
-		 
+		
 		
 	})
-	
+
 	function ocrcomplete(){
 	   if(ocrdata !=null){
 			$('#start').val(ocrdata.start);

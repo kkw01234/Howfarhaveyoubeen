@@ -110,10 +110,10 @@ public class GoogleVisionDAO {
 			return text;
 			}
 		
-	public ArrayList<JsonObject> fromArray(String textList) {//StringTokenizer
+	public ArrayList<String> fromArray(String textList) {//StringTokenizer
 		long starttime=System.currentTimeMillis();
 		
-		ArrayList<JsonObject> objArr = new ArrayList<>();
+		ArrayList<String> objArr = new ArrayList<>();
 		
 		StringTokenizer st = new StringTokenizer(textList);
 		while(st.hasMoreTokens()) {
@@ -121,33 +121,33 @@ public class GoogleVisionDAO {
 				break;
 			}
 		}
-		JsonElement jsonelement = null;
 		
 		for(int i=0;i<3;i++) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty("start",st.nextToken());
-			objArr.add(obj);
+			objArr.add(st.nextToken());
 		}
 		long endtime = System.currentTimeMillis();
 		System.out.println("From 실행 시간 : "+ (endtime - starttime)/1000.0);
 		return objArr;
 	}
-	public ArrayList<JsonObject> toArray(String textList) {//StringTokenizer
+	public ArrayList<String> toArray(String textList) {//StringTokenizer
 		long starttime=System.currentTimeMillis();
 		StringTokenizer st = new StringTokenizer(textList);
-		ArrayList<JsonObject> objArr = new ArrayList<>();
+		ArrayList<String> objArr = new ArrayList<>();
+		boolean from = false;
+		
 		while(st.hasMoreTokens()) {
 			String data = st.nextToken();
-			if(data.toLowerCase().contains("to")) {
-				
+			if(data.toLowerCase().contains("from")) {
+				from = true;
+			}
+			if(from == true && data.toLowerCase().contains("to")) {	
 				break;
 			}
 		
 		}
 		for(int i=0;i<3;i++) {
-			JsonObject obj = new JsonObject();
-			obj.addProperty("end", st.nextToken());
-			objArr.add(obj);
+			
+			objArr.add(st.nextToken());
 		}
 		long endtime = System.currentTimeMillis();
 		System.out.println("to 실행 시간 : "+ (endtime - starttime)/1000.0);

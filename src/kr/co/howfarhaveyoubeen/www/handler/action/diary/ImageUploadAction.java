@@ -24,7 +24,7 @@ import kr.co.howfarhaveyoubeen.www.handler.dao.file.FileDAO;
 import kr.co.howfarhaveyoubeen.www.handler.dao.googlevision.GoogleVisionDAO;
 import kr.co.howfarhaveyoubeen.www.handler.vo.filedbbean;
 
-public class ImageUploadAction implements Action{
+public class ImageUploadAction implements Action{//1206수정
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -58,12 +58,19 @@ public class ImageUploadAction implements Action{
 		
 		//파일 정보 불러오기
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
+		System.out.println(multi);
 		SimpleDateFormat simDf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		long currentTime = System.currentTimeMillis(); 
 		Enumeration files = multi.getFileNames();
+		System.out.println(files);
 		fileInput = (String)files.nextElement();
+		System.out.println(fileInput);
+		
 		fileObj = multi.getFile(fileInput);
 		fileRealName = multi.getFilesystemName(fileInput);
+		if(fileRealName == null) {
+			return "RequestDispatcher:jsp/diary/imageupload.jsp";
+		}	
 		fileName = multi.getOriginalFileName(fileInput);
 		String newfileName = simDf.format(new Date(currentTime))+"-"+fileName;
 		
@@ -105,17 +112,18 @@ public class ImageUploadAction implements Action{
 		String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/image/ticket/"+newfileName;
 		
 		outData.addProperty("ticket",url);
-		session.setAttribute("ticket", gson.toJson(outData));
-		session.setAttribute("ocr", uploadPath+"/"+newfileName);
+		session.setAttribute("ticket", gson.toJson(outData)); // 있어야하는 코든
 		//ArrayList<String> list = googlevisiondao.detectText(uploadPath+"/"+newfileName); //ArrayList
 		//OCR 코드
 		GoogleVisionDAO googlevisiondao = GoogleVisionDAO.getInstance(); 
 		
-		//String list = googlevisiondao.detectText2(uploadPath+"/"+newfileName); //Stringtokenizer
-		//ArrayList<String> start = googlevisiondao.fromArray(list);
-		//ArrayList<String> end = googlevisiondao.toArray(list);
-		//request.setAttribute("startArray",gson.toJson(start));
-		//request.setAttribute("endArray", gson.toJson(end));
+		String list = googlevisiondao.detectText2(uploadPath+"/"+newfileName);
+		ArrayList<String> start = googlevisiondao.fromArray(list);
+		ArrayList<String> end = googlevisiondao.toArray(list);
+		
+		request.setAttribute("start",gson.toJson(start));
+		request.setAttribute("end",gson.toJson(end));
+		
 		}catch(IOException e){
 				e.printStackTrace();
 				script.println("<script>");

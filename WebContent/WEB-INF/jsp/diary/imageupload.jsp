@@ -93,6 +93,9 @@
 						</section>
 					</div>
 				</div>
+				<div id="aftermain">
+				
+				</div>
 
 				<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
 			</div>
@@ -117,11 +120,15 @@
 	}
 	
 	$('#submit1').click(function(){
-		//console.log(image);
 		if(image == null){
 			alert("사진을 업로드 해주세요!!!!");
-
+			
 		}
+		
+		$('#main').hide();
+		var a = '';
+		a +='<div class="text-center"><img src="image/Loading.gif"></img><p>항공권을 인식하고있습니다...</p><br><p>시간이 오래 걸릴 수도 있으니 양해 부탁드립니다.</p></div>';
+		$('#aftermain').html(a);
 	})
 	</script>
 

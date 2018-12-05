@@ -38,6 +38,7 @@ public class AjaxDiaryAction implements Action{
 		case "modifydiary":
 			result = DiaryDAO.getInstance().modifyDiary(element);
 		case "ocrloading":
+			/*
 			GoogleVisionDAO dao = GoogleVisionDAO.getInstance();
 			String list = dao.detectText2((String)session.getAttribute("ocr"));
 			session.setAttribute("ocr",null);
@@ -45,6 +46,7 @@ public class AjaxDiaryAction implements Action{
 			ArrayList<JsonObject> end = dao.toArray(list);
 			start.addAll(end);
 			result = gson.toJson(start);
+			*/
 		}
 		return result;
 	}

@@ -92,7 +92,7 @@
 
 <script src="js/bootstrap.min.js"></script>
 <script src="js/ckeditor.js"></script>
-<script>
+<script> 
   $('#modify').click(function(){
 	  	document.location.href = "diarymodifier.do?diaryID=<%=diaryid%>";
 	  })
@@ -141,12 +141,12 @@
 		$('#startpoint').append(diaryRead.startPoint); //출발지 출력
 		$('#endpoint').append(diaryRead.endPoint); //도착지 출력
 		$('#editor').append(diaryRead.diaryContent); //내용 출력
-		if(diaryRead.userID == '<%=request.getSession().getAttribute("userID")%>
-	') {
+		console.log(diaryRead.userID ==  '<%=request.getSession().getAttribute("userID")%>')
+		if(diaryRead.userID == '<%=request.getSession().getAttribute("userID")%>') {
 							var a = '<div id="radioshare" class="btn-group" data-toggle="buttons">';
 							a += '<label class="btn btn-primary btn-sm "><input type="radio" name="shared" id="shared" autocomplete="off" value="true" checked disabled> 공개</label> <label class="btn btn-primary btn-sm active">';
 							a += '<input type="radio" name="shared" id="shared" autocomplete="off" value="false" checked disabled> 비공개 </label>';
-							a += '</div><button type="button" class="btn btn-primary" id="modify">수정</button><button type="button" class="btn btn-default" id="back">뒤로</button>';
+							a += '<button type="button" class="btn btn-primary" id="modify">수정</button><button type="button" class="btn btn-default" id="back">뒤로</button></div>';
 							$('#useronlybutton').html(a);
 							if (diaryRead.share == true)
 								$(
@@ -156,7 +156,9 @@
 								$(
 										'input:radio[name="shared"]:radio[value=false]')
 										.prop('checked', true);
+							
 						}
+	
 
 					});
 </script>
@@ -170,9 +172,7 @@
 	var stopover = [];
 	var markers = [];
 	var markerloc = [];
-	var coordinates =
-<%=coordinates%>
-	;
+	var coordinates =<%=coordinates%>;
 	console.log(coordinates[1].latitude);
 	console.log(coordinates[1].longitude);
 	function startMap() {
