@@ -32,7 +32,8 @@ ver 0.1.0 2018-11-30 23:43
 - 도시, 닉네임 검색해서 원하는 도시 볼 수 있게
 - 로고 삽입, Footer.jsp 만들기
 - 테스팅
-
+- jar파일, js파일, css파일 안쓰는거 삭제
+- 모든 코드중에서 console.log(), system.out.println(); 삭제 
 
 
 
