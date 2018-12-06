@@ -17,7 +17,7 @@ public class SharedDiaryAction implements Action{
 		//String id = request.getParameter("id");//session으로 받아오는게 훨씬 좋네----회원가입쪽 만들어지면 Session쪽으로
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/404.jsp";
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
 		String id=(String) session.getAttribute("userID");
 		String sequence = (String) request.getParameter("seq");

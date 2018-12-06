@@ -29,10 +29,10 @@
 
 				<!-- /.container-fluid -->
 				<div id="carouselExampleControls" class="carousel slide"
-					data-ride="carousel">
-					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img class="d-block w-100" src="image/1.jpg" alt="첫번째 슬라이드">
+					data-ride="carousel" style="height: 100%; width: 100%">
+					<div class="carousel-inner" >
+						<div class="carousel-item active" >
+							<img class="d-block w-100" src="image/index1.jpg" alt="첫번째 슬라이드" >
 						</div>
 						<div class="carousel-item">
 							<img class="d-block w-100" src="image/2.jpg" alt="두번째 슬라이드">
@@ -52,25 +52,10 @@
 						class="sr-only">다음</span>
 					</a>
 				</div>
-				<div class="text-right">
-					<button type="button" class="btn btn-primary" id="start">시작하기</button>
-					<!-- 버튼 변경 하자 -->
-				</div>
 				<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
 			</div>
 		</div>
 	</div>
-
-
-	<script>
-		$('#start').click(function() {
-	<%if (userID == null) {%>
-		window.location.href = 'loginpage.do';
-	<%} else {%>
-		window.location.href = 'diarylist.do';
-	<%}%>
-	})
-</script>
 </body>
 
 </html>

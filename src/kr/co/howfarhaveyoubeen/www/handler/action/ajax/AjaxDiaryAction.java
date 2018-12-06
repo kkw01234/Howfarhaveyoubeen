@@ -20,6 +20,9 @@ public class AjaxDiaryAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
+		if(session.getAttribute("userID")==null) {
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
+		}
 		Gson gson = new Gson();
 		String req= request.getParameter("req");
 		String data = request.getParameter("data");

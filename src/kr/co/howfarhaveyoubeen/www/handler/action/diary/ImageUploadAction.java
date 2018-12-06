@@ -36,7 +36,7 @@ public class ImageUploadAction implements Action{//1206수정
 		PrintWriter script = response.getWriter();
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/404.jsp";
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
 		filedbbean filebean = new filedbbean();
 		FileDAO filedao = FileDAO.getInstance();

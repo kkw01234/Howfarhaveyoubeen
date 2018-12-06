@@ -2,9 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%
 	String diarylist = (String) request.getAttribute("diarylist");
-	%>
+%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 
@@ -15,7 +15,21 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>다이어리 리스트</title>
+<style>
+ul{
+	display:none;
+}
+
+.pagination-info{
+	display:none;
+	
+}
+
+.pagination{
+text-align: center;
+}
+</style>
 <link href="css/bootstrap-table.css" rel="stylesheet">
 <link href="css/bootstrap-slider.css" rel="stylesheet">
 </head>
@@ -26,15 +40,6 @@
 		<div id="content-wrapper">
 
 			<div class="container-fluid">
-
-				<!-- Breadcrumbs-->
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-					<li class="breadcrumb-item active">Overview</li>
-				</ol>
-
-
-
 				<!-- Page Content -->
 				<div id="main" class="wrapper style1">
 					<div class="container">
@@ -53,7 +58,7 @@
 							<br>
 							<div id="maincontent" class="table-wrapper">
 								<table class="boardtable" id="table" data-toggle="table"
-									data-pagination="true" data-search="false"
+									data-pagination="true" data-search="true"
 									data-page-list="[10]">
 									<thead>
 										<tr class="table-style">

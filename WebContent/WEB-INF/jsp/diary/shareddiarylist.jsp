@@ -16,8 +16,18 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>SB Admin - Blank Page</title>
+<title>나의 여행 다이어리</title>
+<style>
+ul{
+	display:none;
+}
 
+.pagination-info{
+	display:none;
+	
+}
+
+</style>
 
 <link rel="stylesheet" href="css/bootstrap-table.css" />
 
@@ -58,7 +68,7 @@
 
 							<div id="maincontent" class="table-wrapper">
 								<table class="boardtable" id="table" data-toggle="table"
-									data-pagination="true" data-page-list="[10]">
+									data-pagination="true" data-page-list="[10]" data-search="true">
 									<thead>
 										<tr class="table-style">
 											<th data-field="id" data-sortabel="true">순위</th>

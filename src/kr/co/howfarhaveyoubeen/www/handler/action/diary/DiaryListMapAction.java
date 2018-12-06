@@ -13,8 +13,8 @@ public class DiaryListMapAction implements Action{//Map에 다이어리 읽을�
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		String id= (String) session.getAttribute("userID");
-		if(id==null) {
-			return "RequestDispatcher:jsp/error/404.jsp"; //errorpage
+		if(session.getAttribute("userID")==null) {
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
 	
 		DiaryDAO dao = DiaryDAO.getInstance();

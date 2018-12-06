@@ -13,7 +13,7 @@
 <title>SB Admin - 404 Error</title>
 
 </head>
-
+ <!-- 여기는 진짜 오류일경우만 -->
 <body id="page-top">
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
 	<div id="wrapper">

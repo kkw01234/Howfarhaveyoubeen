@@ -18,9 +18,8 @@ public class DiaryWriterAction implements Action{
 		//세션방지 1
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/404.jsp";
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
-		
 		String data = request.getParameter("data");
 		
 		if(data != null) {

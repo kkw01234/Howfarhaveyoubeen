@@ -5,7 +5,7 @@
 	String Allcoordinates = (String) request.getAttribute("Allcoordinates");
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
 <head>
 
@@ -26,13 +26,6 @@
 			<!-- 이미지 첨부랑 설명이 필요한 메인 페이지 -->
 
 			<div class="container-fluid">
-
-				<!-- Breadcrumbs-->
-				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a href="index.html">Dashboard</a>
-					</li>
-					<li class="breadcrumb-item active">Blank Page</li>
-				</ol>
 
 				<!-- Page Content 수정파트 -->
 				<div class="card mb-3">
@@ -56,11 +49,7 @@
 	</div>
 
 	<script>
-		/*
-		$(document).ready(function(){
-			
-		})
-		 */
+		
 		function formatDate2(date) {//이코드 수정 필요할듯 싶습니다.
 			var d = date.split(" ");
 			var month = d[0].split("월")[0];
