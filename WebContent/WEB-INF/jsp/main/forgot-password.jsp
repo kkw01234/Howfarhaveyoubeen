@@ -95,7 +95,8 @@
       </div>
     </div>
 	<div id="aftercontainer" class="container">
-	 	
+	 	<div class="card card-login mx-auto mt-5" id="incard">
+	 	</div>
 	 	
 	</div>
     <!-- Bootstrap core JavaScript-->
@@ -104,13 +105,16 @@
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/sendmail.js"></script>
 	<script>
+	$(document).ready(function(){
+		$('#aftercontainer').hide();
+	})
 	$('#SendMessage').click(function(){
-		$('#container').hide();
-		var a = null;
-		
-		a+='<div class="card card-login mx-auto mt-5"><div class="text-center"><br><br>'+$('#inputEmail').val()+'메일을 보내고있습니다.<br> 잠시만 기다려주세요</div></div>';
-		$('#aftercontainer').html(a);
+		var text = '';
+		text+='<div class="text-center"><br><br>'+$('#inputEmail').val()+'로 메일을 보내고있습니다.<br> 잠시만 기다려주세요</div>';
+		sendmail('#container','#incard',text);
+		$('#aftercontainer').show();
 	})
 	</script>
   </body>

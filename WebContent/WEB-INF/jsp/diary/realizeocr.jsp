@@ -3,6 +3,7 @@
 <%
 	String start = (String) request.getAttribute("start");
 	String end = (String) request.getAttribute("end");
+	String ticket =(String) request.getAttribute("ticket");
 %>
 <!DOCTYPE html>
 <html>
@@ -10,7 +11,20 @@
 <meta charset="UTF-8">
 <title>OCR 인식중</title>
 <!-- ocr 인식 코드 -->
+<style>
+.modal-dialog.modal-fullsize {
+  width: 100%;
+  height: 100%;
+  max-width : 90%
+}
+.modal-content.modal-fullsize {
+  width : auto;
+  height: auto;
+  min-height: 80%;
+  border-radius: 0; 
+}
 
+</style>
 </head>
 
 <body id="page-top">
@@ -19,12 +33,12 @@
 		<jsp:include page="../main/sidebar.jsp" flush="false"></jsp:include>
 		<div id="content-wrapper">
 			<!-- Modal -->
-			<div class="modal fade bs-example-modal-lg" id="locModal"
+			<div class="modal fade" id="locModal"
 				role="dialog" labelledby="myLargeModalLabel">
-				<div class="modal-dialog modal-lg" style="max-width: 80%">
+				<div class="modal-dialog modal-fullsize" role="document">
 					<!-- Modal content-->
-					<div class="modal-content">
-						<div class="modal-header">항공권 인식 완료</div>
+					<div class="modal-content modal-fullsize">
+						<div class="modal-header"><h3>항공권 인식 완료</h3></div>
 						<div class="modal-body" id="locModalbody">
 							<div class="row">
 
@@ -35,21 +49,25 @@
 											id="startloc">
 										</select>
 									</div>
+									<br>
 									<div id="end" class="form-group">
 										<label for="endloc">도착지</label> <select class="form-control"
 											id="endloc">
 										</select>
 									</div>
+								<div>
+									모두 없을 경우는 아래 모두 없음을 클릭해주세요
 								</div>
-
+								<br><br><br><br><br><br><br><br><br><br>
+								</div>
 								<div class="col-md-6" id="googlemaps"></div>
 							</div>
-
-							<div class="modal-footer">
+						</div>
+						<div class="modal-footer">
 								<form name="ocr" method="post" action="diarywriter.do">
 									<div>
 										<input type="hidden" id="jsonobj" name="data" />
-
+										<input type="hidden" id="ticket" name="ticket"/>
 										<button type="submit" class="btn btn-primary" id="write"
 											onclick="ocrcomplete()">확인</button>
 										<a href="diarywriter.do"><button type="button"
@@ -59,7 +77,6 @@
 									</div>
 								</form>
 							</div>
-						</div>
 					</div>
 				</div>
 			</div>
@@ -75,7 +92,7 @@
 	var map = null;
 	var objArr = [];
 	var markers = [];
-	
+
 
 	function geocodeAddress(geocoder, location, state, a, st) {
 		geocoder.geocode({
@@ -155,8 +172,10 @@
 				obj.endlng = objArr[i].loclng;
 			}
 		}
+	
 		var jsonobj = JSON.stringify(obj);
 		$('#jsonobj').val(jsonobj);
+		$('#ticket').val('<%=ticket%>');
 
 	}
 
@@ -200,7 +219,7 @@
 					}
 				}
 			});
-	
+
 	$('#locModal').on('hide.bs.modal',function(){
 		window.location.href="imageuploadpage.do";
 	});

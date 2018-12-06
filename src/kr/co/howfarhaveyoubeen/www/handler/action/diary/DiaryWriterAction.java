@@ -22,15 +22,14 @@ public class DiaryWriterAction implements Action{
 		}
 		
 		String data = request.getParameter("data");
+		
 		if(data != null) {
 			System.out.println(data);
+			String ticket = request.getParameter("ticket");
 			request.setAttribute("ocrdata", data);
-			
+			request.setAttribute("ticket", ticket);
 		}
-		if(session.getAttribute("ticket")!=null) {
-			request.setAttribute("ticket", session.getAttribute("ticket"));
-			session.setAttribute("ticket",null);
-		}
+		
 		request.setAttribute("userID", session.getAttribute("userID"));
 		return "RequestDispatcher:jsp/diary/writediary.jsp";
 	}

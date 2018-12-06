@@ -112,12 +112,19 @@ public class ImageUploadAction implements Action{//1206수정
 		String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/image/ticket/"+newfileName;
 		
 		outData.addProperty("ticket",url);
-		session.setAttribute("ticket", gson.toJson(outData)); // 있어야하는 코든
+		request.setAttribute("ticket", gson.toJson(outData)); // 있어야하는 코든
 		//ArrayList<String> list = googlevisiondao.detectText(uploadPath+"/"+newfileName); //ArrayList
 		//OCR 코드
 		GoogleVisionDAO googlevisiondao = GoogleVisionDAO.getInstance(); 
 		
 		String list = googlevisiondao.detectText2(uploadPath+"/"+newfileName);
+		if(list.equals("")) {
+			script.println("<script>");
+			script.println("alert('인식이 되지 않았습니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			return null;
+		}
 		ArrayList<String> start = googlevisiondao.fromArray(list);
 		ArrayList<String> end = googlevisiondao.toArray(list);
 		

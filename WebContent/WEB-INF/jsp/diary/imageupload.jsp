@@ -104,6 +104,7 @@
 
 	<!-- Custom scripts for all pages-->
 	<script src="js/bootstrap.min.js"></script>
+	<script src="js/sendmail.js"></script>
 	<script>
 	var image=null;
 	function getThumbnailPrivew(html, $target) {
@@ -122,13 +123,11 @@
 	$('#submit1').click(function(){
 		if(image == null){
 			alert("사진을 업로드 해주세요!!!!");
-			
+			return;
 		}
-		
-		$('#main').hide();
-		var a = '';
-		a +='<div class="text-center"><img src="image/Loading.gif"></img><p>항공권을 인식하고있습니다...</p><br><p>시간이 오래 걸릴 수도 있으니 양해 부탁드립니다.</p></div>';
-		$('#aftermain').html(a);
+		var text ='';
+		text +='<p> 항공권을 인식중입니다. 잠시만 기다려주세요</p>';
+		sendmail('#main','#aftermain',text);
 	})
 	</script>
 

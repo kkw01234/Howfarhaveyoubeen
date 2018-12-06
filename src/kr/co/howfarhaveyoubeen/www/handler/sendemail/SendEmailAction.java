@@ -31,33 +31,33 @@ public class SendEmailAction {//login.do
 
 
    public int SendEmail(String userid, String code, HttpServletRequest request) {
-	   	
+
 		UserDAO userDAO = new UserDAO();
 		String result = null;
 		boolean emailChecked = userDAO.getUserEmailChecked(userid);
 
-		
+
 		if(emailChecked == true) {
 			/*
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('이미 인증 된 회원입니다.');");
 			script.println("</script>");
-			script.close();		
+			script.close();
 			result = "RequestDispatcher:jsp/main/index.jsp";
 			return result;
 			*/
 			return 0;
 		}
-		
-		
+
+
 		String host = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/";
 		String from = "skdldlssk@gmail.com";
 		String to = userDAO.getUserEmail(userid);
 		String subject = "Howfarhaveyoubeen 페이지 이메일 인증 메일입니다.";
 		String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." +
 			"<a href='" + host + "emailCheckAction.do?code=" + code + "&userID="+ userid +"'>이메일 인증하기</a>";
-		
+
 		// SMTP에 접속하기 위한 정보를 기입합니다.
 		Properties p = new Properties();
 		p.put("mail.smtp.user", from);
@@ -73,7 +73,7 @@ public class SendEmailAction {//login.do
 		    Authenticator auth = new Gmail();
 		    Session ses = Session.getInstance(p, auth);
 		    ses.setDebug(true);
-		    MimeMessage msg = new MimeMessage(ses); 
+		    MimeMessage msg = new MimeMessage(ses);
 		    msg.setSubject(subject);
 		    Address fromAddr = new InternetAddress(from);
 		    msg.setFrom(fromAddr);
@@ -85,20 +85,26 @@ public class SendEmailAction {//login.do
 			result = "RequestDispatcher:jsp/main/sendemail.jsp";
 		} catch(Exception e){
 		    e.printStackTrace();
-		    
+
 		    /*
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('오류가 발생했습니다..');");
 			script.println("history.back();");
 			script.println("</script>");
-			script.close();	
+			script.close();
 			*/
 		    return -1;
 		}
-	
-		
+
+
 		return 1;
 	}
+
+
+
+
+   		
+   
 
 }

@@ -79,5 +79,6 @@ public class ResetSendEmailAction{//login.do
 		
 		return true;
 	}
+ 
 
 }
