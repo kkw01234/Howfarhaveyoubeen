@@ -26,9 +26,6 @@ ul{
 	
 }
 
-.pagination{
-text-align: center;
-}
 </style>
 <link href="css/bootstrap-table.css" rel="stylesheet">
 <link href="css/bootstrap-slider.css" rel="stylesheet">
@@ -76,7 +73,7 @@ text-align: center;
 								<!-- 버튼 (항공권 인식, 항공권없이 쓰기) -->
 								<a href="imageuploadpage.do">
 									<button type="button" class="btn btn-default">항공권 인식</button>
-								</a> <a href="diarywrite.do">
+								</a> <a href="diarywriter.do">
 									<button type="button" class="btn btn-default">쓰기</button>
 								</a>
 							</div>

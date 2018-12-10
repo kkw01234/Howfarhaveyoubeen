@@ -13,6 +13,7 @@ import com.google.gson.JsonParser;
 
 import kr.co.howfarhaveyoubeen.www.common.controller.Action;
 import kr.co.howfarhaveyoubeen.www.handler.dao.diary.DiaryDAO;
+import kr.co.howfarhaveyoubeen.www.handler.dao.file.FileDAO;
 import kr.co.howfarhaveyoubeen.www.handler.dao.googlevision.GoogleVisionDAO;
 
 public class AjaxDiaryAction implements Action{
@@ -40,16 +41,8 @@ public class AjaxDiaryAction implements Action{
 			break;
 		case "modifydiary":
 			result = DiaryDAO.getInstance().modifyDiary(element);
-		case "ocrloading":
-			/*
-			GoogleVisionDAO dao = GoogleVisionDAO.getInstance();
-			String list = dao.detectText2((String)session.getAttribute("ocr"));
-			session.setAttribute("ocr",null);
-			ArrayList<JsonObject> start = dao.fromArray(list);
-			ArrayList<JsonObject> end = dao.toArray(list);
-			start.addAll(end);
-			result = gson.toJson(start);
-			*/
+			break;
+		//밑 두부분 삭제
 		}
 		return result;
 	}

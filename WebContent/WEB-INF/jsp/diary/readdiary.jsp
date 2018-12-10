@@ -4,6 +4,7 @@
 	String diaryread = (String) request.getAttribute("diaryread");
 	String diaryid = (String) request.getAttribute("diaryID");
 	String coordinates = (String) request.getAttribute("coordinates");
+	String userID = (String) request.getAttribute("userID");
 %>
 <!DOCTYPE html>
 <html>
@@ -19,8 +20,18 @@
 
 <title>SB Admin - Blank Page</title>
 
-
-
+<link rel="stylesheet" href="css/bootstrap-table.css" />
+<style>
+	.td .tr
+	{
+		vertical-align: middle !important;
+		max-width: inherit;
+		
+	}
+	.table > tbody > tr> td:nth-child(1), .table > tbody > tr> td:nth-child(2) {
+		vertical-align: middle ! important;
+	}
+</style>
 
 </head>
 
@@ -28,65 +39,78 @@
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
 	<div id="wrapper">
 		<jsp:include page="../main/sidebar.jsp" flush="false"></jsp:include>
-		<div id="content-wrapper">
+	<div id="content-wrapper">
 			<!-- 이미지 첨부랑 설명이 필요한 메인 페이지 -->
-
-			<!-- Page Content -->
-			<div class="card mb-3">
-				<div class="card-header">다이어리 읽기</div>
-				<div class="card-body">
-					<form>
-						<div class="row">
-							<div class="col-sm-2">
-								<label for="diaryTitle" class="text-center">제목 : </label>
-							</div>
-							<div class="col-sm-10">
-								<div id="diaryTitle"></div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<label for="user"> 이름 : </label>
-								<div id="user"></div>
-								<label for="date"> 날짜 : </label>
-								<div id="date"></div>
-								<label for="startpoint"> 출발지 : </label>
-								<div class="row">
-									<div class="col-sm-9">
-										<div id="startpoint"></div>
-									</div>
-								</div>
-								<label for="endpoint"> 도착지 : </label>
-								<div class="row">
-									<div class="col-sm-9">
-										<div id="endpoint"></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
+			<div class="container-fluid">
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<br>
+						<header class="major">
+							<h2>다이어리 보기</h2>
+							<p>자신의 다이어리일 경우 수정,삭제가 가능합니다.</p>
+						</header>
+						<br>
+						<!-- Page Content -->
+						<div class="card mb-3">
+							<div class="row">
 								<div class="col-md-6">
-									<div id="googlemaps"
-										style="width: 300px; height: 300px; overflow: auto;"></div>
+
+									<table class="table" style=" width: 100%; height: 316px;  vertical-align: middle">
+										<tbody>
+											<tr>
+												<td>제목 :</td>
+												<td id="diaryTitle">
+											</tr>
+											<tr>
+												<td>이름 :</td>
+												<td id="user">
+											</tr>
+											<tr>
+												<td>날짜 :</td>
+												<td id="date">
+											</tr>
+											<tr>
+												<td>출발 :</td>
+												<td id="startpoint">
+											</tr>
+											<tr>
+												<td>도착 :</td>
+												<td id="endpoint">
+											</tr>
+										</tbody>
+
+									</table>
 								</div>
-							</div>
+								<div class="col-md-6" style="width: inherit;">
+									<div id="googlemaps"
+										style="width: inherit; height: 316px; padding: 0; overflow: auto;"></div>
+								</div>
+								</div>
+
+								<textarea name="content" id="editor" ></textarea>
 						</div>
+						<br>
+						<div class="text-right">
+						<%
 
-					</form>
-					<div id="editor"></div>
-					<div class="text-right" id="useronlybutton">
-
-
-						<!--  -->
+							if(userID.equals(session.getAttribute("userID"))){ 
+						%>
+							<button id="modify" type="button" class="btn btn-primary" >수정</button>
+							<button id="delete" type="button" class="btn btn-danger" onclick="return delconfirm()">삭제</button>
+						<%
+							}
+						%>
+							<button id="back" type="button" class="btn btn-default" >뒤로</button>
+						</div>
 					</div>
 				</div>
-
-
-
-
+			</div>
+			<br><br>
 				<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
 			</div>
-		</div>
-	</div>
+			</div>
+		
+	
 
 </body>
 
@@ -102,6 +126,13 @@
   </script>
 <script>
     
+	function delconfirm(){//삭제 코드
+		var message = confirm("정말로 삭제하시겠습니까?");
+		if(message == true){
+			document.location.href = "diarydelete.do?diaryID=<%=diaryid%>";
+		}else
+			return false;
+	}
     function formatDate2(date){
     	var d = date.split(" ");
     	var month = d[0].split("월")[0];//이코드 수정 필요할듯 싶습니다.
@@ -126,27 +157,40 @@
 
         return [year, month, day].join('-') + ' ' + [hour, minute].join(':');
     } 
+        var theEditor = null;
+   
     
     $(document).ready(function() {
 		var diaryRead= <%=diaryread%>; //다이어리 디비 저장
+		 ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게
+			   ckfinder:{
+				uploadUrl :"ckeditorupload.do"
+			   },
+		   }).then( editor => {
+			   	editor.setData(diaryRead.diaryContent);
+				theEditor =editor;
+		   }).catch (err =>{
+			   console.error(err.stack);
+		   });
+   
 		$('#diaryTitle').append(diaryRead.diaryTitle); //제목출력
 		$('#user').append(diaryRead.userID); //작성자 출력
 		var date = $('#date');
 		var data = diaryRead.diaryDate;
 		
-		//console.log(formatdate2(data));
 		$('#date').append(formatDate2(data));
 		
 		//$('#date').val(diaryRead.userID); //날짜 안됨 슈밤
 		$('#startpoint').append(diaryRead.startPoint); //출발지 출력
 		$('#endpoint').append(diaryRead.endPoint); //도착지 출력
-		$('#editor').append(diaryRead.diaryContent); //내용 출력
-		console.log(diaryRead.userID ==  '<%=request.getSession().getAttribute("userID")%>')
-		if(diaryRead.userID == '<%=request.getSession().getAttribute("userID")%>') {
-							var a = '<div id="radioshare" class="btn-group" data-toggle="buttons">';
-							a += '<label class="btn btn-primary btn-sm "><input type="radio" name="shared" id="shared" autocomplete="off" value="true" checked disabled> 공개</label> <label class="btn btn-primary btn-sm active">';
-							a += '<input type="radio" name="shared" id="shared" autocomplete="off" value="false" checked disabled> 비공개 </label>';
-							a += '<button type="button" class="btn btn-primary" id="modify">수정</button><button type="button" class="btn btn-default" id="back">뒤로</button></div>';
+		$('#editor').append(getDataFromTheEditor()); //내용 출력
+		var session = <%=request.getSession().getAttribute("userID")%>
+		if(diaryRead.userID.indexof(session)) 
+		{
+							var a = '<div class="text-right" style=' + 'display:inline; float:right;' + '><button id="modify" type="button" class="btn btn-primary" >수정</button>';
+							a += '<button id="delete" type="button" class="btn btn-danger" onclick="return delconfirm()">삭제</button>';
+							a += '<button id="back" type="button" class="btn btn-default" >뒤로</button></div>';
+							
 							$('#useronlybutton').html(a);
 							if (diaryRead.share == true)
 								$(
@@ -156,11 +200,14 @@
 								$(
 										'input:radio[name="shared"]:radio[value=false]')
 										.prop('checked', true);
-							
-						}
+		}
 	
 
 					});
+    
+    function getDataFromTheEditor(){//ckeditor 데이터 바당오기
+  	   return theEditor.getData();
+     }
 </script>
 <script>
 	//구글 지도

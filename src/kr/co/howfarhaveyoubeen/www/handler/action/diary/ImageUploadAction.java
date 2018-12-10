@@ -58,39 +58,21 @@ public class ImageUploadAction implements Action{//1206수정
 		
 		//파일 정보 불러오기
 		MultipartRequest multi = new MultipartRequest(request, uploadPath, size, "UTF-8", new DefaultFileRenamePolicy());
-		System.out.println(multi);
 		SimpleDateFormat simDf = new SimpleDateFormat("yyyyMMddHHmmss"); 
 		long currentTime = System.currentTimeMillis(); 
 		Enumeration files = multi.getFileNames();
-		System.out.println(files);
+		
 		fileInput = (String)files.nextElement();
-		System.out.println(fileInput);
 		
 		fileObj = multi.getFile(fileInput);
 		fileRealName = multi.getFilesystemName(fileInput);
 		if(fileRealName == null) {
-			return "RequestDispatcher:jsp/diary/imageupload.jsp";
+			return null;
 		}	
 		fileName = multi.getOriginalFileName(fileInput);
 		String newfileName = simDf.format(new Date(currentTime))+"-"+fileName;
 		
-		if(!fileName.endsWith(".bmp") && !fileName.endsWith(".gif") && !fileName.endsWith(".jpg") && !fileName.endsWith(".png") ){
-			
-			script.println("<script>");
-			script.println("alert('업로드 할 수 없는 확장자입니다.')");
-			script.println("history.back()");
-			script.println("</script>");
-			return null;
-		}
-		//파일 크기 확인
-		else if(maxSize < fileSize){
-			
-			script.println("<script>");
-			script.println("alert('파일 용량이 10MB 이상입니다.')");
-			script.println("history.back()");
-			script.println("</script>");
-			return null;
-		}
+		
 		File oldFile = new File(uploadPath,fileName);
 		File newFile = new File(uploadPath,newfileName);
 		
@@ -107,6 +89,25 @@ public class ImageUploadAction implements Action{//1206수정
 			fout.close();
 			oldFile.delete();
 		}
+		
+		if(!newfileName.endsWith(".bmp") && !newfileName.endsWith(".gif") && !newfileName.endsWith(".jpg") && !newfileName.endsWith(".png") ){
+			filedao.deleteFile(newfileName, request); //다시 지워주는 코드
+			script.println("<script>");
+			script.println("alert('업로드 할 수 없는 확장자입니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			return null;
+		}
+		//파일 크기 확인
+		else if(maxSize < fileSize){
+			filedao.deleteFile(newfileName, request); //다시지워주는 코드
+			script.println("<script>");
+			script.println("alert('파일 용량이 10MB 이상입니다.')");
+			script.println("history.back()");
+			script.println("</script>");
+			return null;
+		}
+		
 		Gson gson = new Gson();
 		JsonObject outData = new JsonObject();
 		String url = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/image/ticket/"+newfileName;
@@ -117,15 +118,16 @@ public class ImageUploadAction implements Action{//1206수정
 		//OCR 코드
 		GoogleVisionDAO googlevisiondao = GoogleVisionDAO.getInstance(); 
 		
-		String list = googlevisiondao.detectText2(uploadPath+"/"+newfileName);
+		String list = googlevisiondao.detectText2(uploadPath+"/"+newfileName); //여기도  Goolevision 실행
 		if(list.equals("")) {
+			filedao.deleteFile(newfileName, request);
 			script.println("<script>");
 			script.println("alert('인식이 되지 않았습니다.')");
 			script.println("history.back()");
 			script.println("</script>");
 			return null;
 		}
-		ArrayList<String> start = googlevisiondao.fromArray(list);
+		ArrayList<String> start = googlevisiondao.fromArray(list); //Google vision 실행
 		ArrayList<String> end = googlevisiondao.toArray(list);
 		
 		request.setAttribute("start",gson.toJson(start));
@@ -133,6 +135,7 @@ public class ImageUploadAction implements Action{//1206수정
 		
 		}catch(IOException e){
 				e.printStackTrace();
+				
 				script.println("<script>");
 				script.println("alert('예외 오류가 발생했습니다.')");
 				script.println("history.back()");

@@ -110,7 +110,7 @@ public class GoogleVisionDAO {
 			return text;
 			}
 		
-	public ArrayList<String> fromArray(String textList) {//StringTokenizer
+	public ArrayList<String> fromArray(String textList) {//StringTokenizer로 3개 받아와서
 		long starttime=System.currentTimeMillis();
 		
 		ArrayList<String> objArr = new ArrayList<>();
@@ -129,7 +129,7 @@ public class GoogleVisionDAO {
 		System.out.println("From 실행 시간 : "+ (endtime - starttime)/1000.0);
 		return objArr;
 	}
-	public ArrayList<String> toArray(String textList) {//StringTokenizer
+	public ArrayList<String> toArray(String textList) {//StringTokenizer 3개 받아와서 3개를 프런트로
 		long starttime=System.currentTimeMillis();
 		StringTokenizer st = new StringTokenizer(textList);
 		ArrayList<String> objArr = new ArrayList<>();
@@ -137,7 +137,7 @@ public class GoogleVisionDAO {
 		
 		while(st.hasMoreTokens()) {
 			String data = st.nextToken();
-			if(data.toLowerCase().contains("from")) {
+			if(data.toLowerCase().contains("from")) { //From이 나올때까지 계속 돌림 (From 뒤에 무조건 to가 나오기 때문)
 				from = true;
 			}
 			if(from == true && data.toLowerCase().contains("to")) {	

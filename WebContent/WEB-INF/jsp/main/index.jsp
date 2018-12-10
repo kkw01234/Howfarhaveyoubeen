@@ -14,48 +14,59 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+
 </head>
+<style>
+#page-top{
+	background-size:cover;
+}
+</style>
 
-
-<body id="page-top">
-
+<body id="page-top" style="backgroud-size:cover;">
+	<div id="background-changer">
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
 	<div id="wrapper">
+	<%if(session.getAttribute("userID")!=null) {%>
 		<jsp:include page="../main/sidebar.jsp" flush="false"></jsp:include>
+		<%} %>
 		<div id="content-wrapper">
 			<!-- 이미지 첨부랑 설명이 필요한 메인 페이지 -->
 
 			<div class="container-fluid">
 
-				<!-- /.container-fluid -->
-				<div id="carouselExampleControls" class="carousel slide"
-					data-ride="carousel" style="height: 100%; width: 100%">
-					<div class="carousel-inner" >
-						<div class="carousel-item active" >
-							<img class="d-block w-100" src="image/index1.jpg" alt="첫번째 슬라이드" >
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="image/2.jpg" alt="두번째 슬라이드">
-						</div>
-						<div class="carousel-item">
-							<img class="d-block w-100" src="image/Kakaofriends.png"
-								alt="세번째 슬라이드">
-						</div>
-					</div>
-					<a class="carousel-control-prev" href="#carouselExampleControls"
-						role="button" data-slide="prev"> <span
-						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-						class="sr-only">이전</span>
-					</a> <a class="carousel-control-next" href="#carouselExampleControls"
-						role="button" data-slide="next"> <span
-						class="carousel-control-next-icon" aria-hidden="true"></span> <span
-						class="sr-only">다음</span>
-					</a>
+				
+				
 				</div>
-				<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
+				
 			</div>
+			
 		</div>
-	</div>
+		</div>
+		<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
 </body>
+<script>
 
+var images = ["image/index1.jpg", "image/1.jpg", "image/jeju1.png"];
+
+$('#page-top').css('background-image', "url('" + images[0] + "')");
+$('#page-top').css('background-size',"cover");
+$(function () {
+	var i = 0; 
+	$("#page-top").css("background-image", "url(./" + images[i] + ")"); 
+	setInterval(function () {
+		i++; 
+		if (i == images.length) {
+			i = 0; 
+			} 
+		$("#page-top").fadeOut(0, function () {
+			$(this).css("background-image", "url(./" + images[i] + ")"); 
+			$(this).fadeIn(0); 
+			}); 
+		}, 5000); 
+	});
+
+
+
+
+</script>
 </html>

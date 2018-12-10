@@ -1,5 +1,12 @@
    <!-- Sticky Footer -->
-        <footer class="sticky-footer">
+<%if(session.getAttribute("userID")== null) {%>
+	<style>
+	#footer{
+		width:100%;
+	}
+	</style>
+<%} %>
+        <footer id="footer" class="sticky-footer" style="width:100%">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
               <span>Copyright © Kyonggi Univ. Computer Science Web Service Project</span>

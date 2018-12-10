@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
   <head>
 
@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Forgot Password</title>
+    <title>How far have you been - Forgot Password</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -33,9 +33,6 @@
 
   <a class="navbar-brand mr-1" href="Index"><img src="image/weblogo_small.png"></img></a>
 
-  <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-    <i class="fas fa-bars"></i>
-  </button>
 
   <!-- Navbar Search -->
   <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>
@@ -82,6 +79,7 @@
             <div class="form-group">
               <div class="form-label-group">
                 <input type="email" id="inputEmail" name="userEmail" class="form-control" placeholder="Enter email address" required="required" autofocus="autofocus">
+                <input type="hidden" id="forgotemailform" name="forgotemailform">
                 <label for="inputEmail">이메일 주소</label>
               </div>
             </div>
@@ -116,6 +114,8 @@
 		sendmail('#container','#incard',text);
 		$('#aftercontainer').show();
 	})
+	
+	
 	</script>
   </body>
 

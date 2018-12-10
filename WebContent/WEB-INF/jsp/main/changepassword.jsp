@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Forgot Password</title>
+    <title>How far have you been - Forgot Password</title>
 
     <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -32,10 +32,6 @@
 <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
 
   <a class="navbar-brand mr-1" href="Index"><img src="image/weblogo_small.png"></img></a>
-
-  <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-    <i class="fas fa-bars"></i>
-  </button>
 
   <!-- Navbar Search -->
   <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0"></form>

@@ -22,11 +22,11 @@ public class DiaryReaderAction implements Action{
 		Gson gson = new Gson();
 		DiaryDAO diarydao = DiaryDAO.getInstance();
 		String result=null;
-		
 		result = diarydao.updateReadCount(diaryid);//
 		request.setAttribute("diaryread", diarydao.getDiary(diaryid));
 		request.setAttribute("coordinates", diarydao.getDiaryCoordinates(diaryid));
 		request.setAttribute("diaryID", diaryid);
+		request.setAttribute("userID", diarydao.findUserID(diaryid));
 		return "RequestDispatcher:jsp/diary/readdiary.jsp";
 	}
 

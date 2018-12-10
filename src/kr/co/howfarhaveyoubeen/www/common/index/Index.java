@@ -19,7 +19,7 @@ public class Index extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     	throws ServletException, IOException{
     	try {
-    		//System.out.println("aaaaa");
+    		request.setAttribute("index","index"); //추가파트
     		request.getRequestDispatcher("WEB-INF/jsp/main/index.jsp").forward(request, response);
     	} catch(Exception ex) {
     		throw new ServletException(ex.getMessage(), ex);

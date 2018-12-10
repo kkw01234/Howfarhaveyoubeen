@@ -105,15 +105,17 @@ public class RegisterAction implements Action{//register.do
 				System.out.println("이메일 전송 완료");
 			}else if(email_result==0) {
 				System.out.println("이메일 전송에 실패했습니다.");
+				dao.deleteUser(user); //오류났을때 삭제 코드 (추가)
 				script.println("<script>");
-				script.println("alert('이메일 전송에 실패했습니다.')");
+				script.println("alert('이메일 전송에 실패했습니다. 다시 입력해주세요')");
 				script.println("history.back()");
 				script.println("</script>");
 				return null;
 			}else {
 				System.out.println("오류가 발생했습니다.");
+				dao.deleteUser(user);  //오류 났을 때 삭제 코드 (추가)
 				script.println("<script>");
-				script.println("alert('오류가 발생했습니다.')");
+				script.println("alert('오류가 발생했습니다. 다시 입력해주세요')");
 				script.println("history.back()");
 				script.println("</script>");
 				return null;

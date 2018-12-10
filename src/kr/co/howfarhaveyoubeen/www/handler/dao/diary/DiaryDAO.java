@@ -3,7 +3,8 @@ package kr.co.howfarhaveyoubeen.www.handler.dao.diary;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Map;
 
@@ -95,7 +96,7 @@ public class DiaryDAO {
 		return gson.toJson(diarydb);
 	}
 
-	public String updateReadCount(String id) throws SQLException { // 寃뚯떆湲� 蹂� �븣 議고쉶�닔媛� 利앷��맂�떎
+	public String updateReadCount(String id) throws SQLException { // 다이어리 수정
 		String result;
 		Connection conn = Config.getInstance().sqlLogin();
 		try {
@@ -175,7 +176,42 @@ public class DiaryDAO {
 
 		return gson.toJson(diarydb.get(0));
 	}
-
+	//삭제 DAO
+	public String deleteDiary(String id) throws SQLException { 
+		String result;
+		Connection conn = Config.getInstance().sqlLogin();
+		try {
+			QueryRunner queryRunner = new QueryRunner();
+			queryRunner.update(conn, "DELETE FROM diarydb WHERE diaryID=?",id);
+			queryRunner.update(conn, "DELETE FROM coordinates WHERE diaryID=?",id);
+			result="Success";
+		}catch(SQLException e) {
+			e.printStackTrace();
+			result="Fail";
+		}finally {
+			DbUtils.close(conn);
+		}
+		return result;
+	}
+	
+	//diaryID로 userID조회하는 코드
+	public String findUserID(String diaryID) {
+		String SQL = "Select userID FROM diarydb WHERE diaryID=?";
+		Connection conn = Config.getInstance().sqlLogin();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1,  diaryID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return rs.getString(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return null; //db오류
+	}
 	public String getDiaryCoordinates(String id) throws SQLException {// 각 다이어리에 있는 좌표 받아오기
 		Connection conn = Config.getInstance().sqlLogin();
 		List<Map<String, Object>> map = null;
@@ -199,42 +235,41 @@ public class DiaryDAO {
 		return gson.toJson(coordinates);
 	}
 
-	public String modifyDiary(JsonElement element) throws SQLException { // 다이어리 수정
-		String result = null;
-		Connection conn = Config.getInstance().sqlLogin();
-		JsonObject obj = element.getAsJsonObject();
+	public String modifyDiary(JsonElement element) throws SQLException { //다이어리 수정
+		ArrayList<String> arr = new ArrayList<>();
+		JsonObject obj= element.getAsJsonObject();
 		int diaryid = obj.get("diaryID").getAsInt();
-		String diaryTitle = obj.get("diaryTitle").getAsString();
+		String diaryTitle =obj.get("diaryTitle").getAsString();
 		String user = obj.get("user").getAsString();
-		String date = obj.get("date").getAsString();
-		boolean shared = obj.get("shared").getAsBoolean();
+		String date =obj.get("date").getAsString();
+		boolean shared =obj.get("shared").getAsBoolean();
 		String startpoint = obj.get("startpoint").getAsString();
-		String endpoint = obj.get("endpoint").getAsString();
+		String endpoint =obj.get("endpoint").getAsString();
 		String content = obj.get("content").getAsString();
-		String startplat = obj.get("startplat").getAsString();
-		String startplng = obj.get("startplng").getAsString();
-		String endplat = obj.get("endplat").getAsString();
-		String endplng = obj.get("endplng").getAsString();
+		String startplat=obj.get("startplat").getAsString();
+		String startplng=obj.get("startplng").getAsString();
+		String endplat=obj.get("endplat").getAsString();
+		String endplng=obj.get("endplng").getAsString();
+
+		Connection conn =Config.getInstance().sqlLogin();
+		
 		try {
 			QueryRunner queryRunner = new QueryRunner();
-			queryRunner.update(conn,
-					"UPDATE diarydb SET diaryTitle=?,diaryDate=?,startpoint=?,endpoint=?,diaryContent=?,diaryID=?,share=? WHERE diaryID=? AND userID=?",
-					diaryTitle, date, startpoint, endpoint, content, shared, diaryid, user);
-			queryRunner.update(conn,
-					"UPDATE coordinates SET region=?,latitude=?,longitude=?  WHERE point='start' AND diaryID =? AND userID=?",
-					startpoint, startplat, startplng, diaryid, user);
-			queryRunner.update(conn,
-					"UPDATE coordinates SET region=?,latitude=?,longitude=?  WHERE point='end' AND diaryID =? AND userID=?",
-					endpoint, endplat, endplng, diaryid, user);
-			result = "Success";
-		} catch (SQLException e) {
-			result = "Fail";
+			queryRunner.update(conn,"UPDATE diarydb SET diaryTitle=?,diaryDate=?,startpoint=?,endpoint=?,diaryContent=?,diaryID=?,share=? WHERE diaryID=? AND userID=?",diaryTitle,date,startpoint,endpoint,content,diaryid,shared,diaryid,user);
+			queryRunner.update(conn,"UPDATE coordinates SET region=?,latitude=?,longitude=?  WHERE point='start' AND diaryID =? AND userID=?",startpoint,startplat,startplng,diaryid,user);
+			queryRunner.update(conn,"UPDATE coordinates SET region=?,latitude=?,longitude=?  WHERE point='end' AND diaryID =? AND userID=?",endpoint,endplat,endplng,diaryid,user);
+			arr.add("Success");
+			arr.add(Integer.toString(diaryid));
+		}catch(SQLException e) {
+			arr.add("Fail");
 			e.printStackTrace();
-
-		} finally {
+			
+		}finally {
 			DbUtils.close(conn);
 		}
-		return result;
+		Gson gson = new Gson();
+		
+		return gson.toJson(arr);
 	}
 
 	public String getUserCoordinates(String id) throws SQLException { // 각 ID마다 모든 좌표받아오기

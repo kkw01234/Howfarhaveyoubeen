@@ -51,6 +51,7 @@ public class LoginAction implements Action{//login.do
 		if(db_result == 1) {
 			if(emailCheck) {
 				result = "RequestDispatcher:jsp/main/index.jsp"; //로그인 성공 후 메인페이지 이동
+				request.setAttribute("index","index");
 				session.setAttribute("userID", userID); //세션 생성
 				session.setMaxInactiveInterval(15*60); //세션 유효기간 10분
 				System.out.println("로그인 성공");

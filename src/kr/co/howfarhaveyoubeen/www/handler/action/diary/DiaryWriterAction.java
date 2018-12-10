@@ -3,6 +3,7 @@ package kr.co.howfarhaveyoubeen.www.handler.action.diary;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionListener;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;

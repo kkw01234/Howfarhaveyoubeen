@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -10,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>에러 페이지</title>
+<title>로그인 오류</title>
 
 </head>
 <!-- Session 없을때 -->

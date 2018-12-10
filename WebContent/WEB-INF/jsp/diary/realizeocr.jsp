@@ -43,7 +43,7 @@
 							<div class="row">
 
 								<div class="col-md-6">
-									<h3>맞는 도시 (공항)를 선택해 주세요</h3>
+									<h3>맞는 도시(공항)를 선택해 주세요</h3>
 									<div id="start" class="form-group">
 										<label for="startloc">출발지</label> <select class="form-control"
 											id="startloc">
@@ -55,10 +55,12 @@
 											id="endloc">
 										</select>
 									</div>
+								<br>
 								<div>
 									모두 없을 경우는 아래 모두 없음을 클릭해주세요
+									(다이어리 작성할 때 수정 가능합니다.)
 								</div>
-								<br><br><br><br><br><br><br><br><br><br>
+								<br><br><br><br><br><br><br><br><br>
 								</div>
 								<div class="col-md-6" id="googlemaps"></div>
 							</div>
@@ -73,7 +75,7 @@
 										<a href="diarywriter.do"><button type="button"
 												class="btn btn-primary">모두 없음</button></a> <a
 											href="imageuploadpage.do"><button type="button"
-												class="btn btn-default" id="cancel">취소</button></a>
+												class="btn btn-default" id="cancel" onclick="deleteimg()">취소</button></a>
 									</div>
 								</form>
 							</div>
@@ -221,8 +223,25 @@
 			});
 
 	$('#locModal').on('hide.bs.modal',function(){
+		deleteimg();
 		window.location.href="imageuploadpage.do";
 	});
+	
+	
+	function deleteimg(){
+		$.ajax({
+			url : "imagedelete.do",
+			type : 'post',
+			data : {
+				name : '<%=session.getAttribute("userID")%>',
+				fileurl : <%=ticket%>.ticket
+			},
+			success : (function(data){
+				if(data==true)
+				window.location.href="imageuploadpage.do";
+			})
+		})
+	}
 </script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=Location"

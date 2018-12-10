@@ -16,6 +16,7 @@
 <link href="css/sb-admin.css" rel="stylesheet">
 
 <%
+	String index = (String)request.getAttribute("index");
 	String userID = null;
 	if (session.getAttribute("userID") != null)
 		userID = (String) session.getAttribute("userID");
@@ -23,7 +24,7 @@
 
 
 <header>
-	<nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+	<nav id="header1" class="navbar navbar-expand navbar-dark static-top">
 
 		<a class="navbar-brand mr-1" href="Index"><img src="image/weblogo_small.png"></img></a>
 
@@ -93,7 +94,16 @@
 	<script src="js/sb-admin.min.js"></script>
 
 
-
+<script>
+	var index = '<%=index%>';
+	
+	if(index == "index"){
+		$('#header1').css("background-color","transparent");
+	}else{
+		$('#header1').css("background-color","#343a40");
+	}
+	
+</script>
 
 
 

@@ -3,6 +3,7 @@ package kr.co.howfarhaveyoubeen.www.handler.dao.user;
 import java.sql.*;
 import java.util.*;
 
+import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
@@ -197,6 +198,21 @@ public class UserDAO {
 				e.printStackTrace();
 			}
 			return false; //db오류
+		}
+		public void deleteUser(Userdbbean user) throws SQLException {  // 오류났을때 삭제해주는 코드
+			String SQL = "DELETE FROM userdb WHERE userID=?";
+			Connection conn = Config.getInstance().sqlLogin();
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1, user.getUserID());
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				DbUtils.close(conn);
+			}
+			
 		}
 		
 }

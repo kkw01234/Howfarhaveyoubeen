@@ -55,8 +55,7 @@ public class SendEmailAction {//login.do
 		String from = "skdldlssk@gmail.com";
 		String to = userDAO.getUserEmail(userid);
 		String subject = "Howfarhaveyoubeen 페이지 이메일 인증 메일입니다.";
-		String content = "다음 링크에 접속하여 이메일 확인을 진행하세요." +
-			"<a href='" + host + "emailCheckAction.do?code=" + code + "&userID="+ userid +"'>이메일 인증하기</a>";
+		String content = html1(host,code,userid);
 
 		// SMTP에 접속하기 위한 정보를 기입합니다.
 		Properties p = new Properties();
@@ -100,11 +99,32 @@ public class SendEmailAction {//login.do
 
 		return 1;
 	}
-
-
-
-
-   		
-   
+		
+   public String html1(String host, String code, String userid) { //추가코드 (CSS 적용) 이메일 html 양식
+	   String html ="";
+	   html +="\n" + 
+	   		"<div style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 540px; height: 600px; border-top: 4px solid #4dbce9; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">\n" + 
+	   		"	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">\n" + 
+	   		"		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">How for have you been</span><br />\n" + 
+	   		"		<span style=\"color:#4dbce9;\">메일인증</span> 안내입니다.\n" + 
+	   		"	</h1>\n" + 
+	   		"	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\n" + 
+	   		"		안녕하세요.<br />\n" + 
+	   		"		How far have you been에 가입해 주셔서 진심으로 감사드립니다.<br />\n" + 
+	   		"		아래 <b style=\"color:#4dbce9;\">'메일 인증'</b> 버튼을 클릭하여 회원가입을 완료해 주세요.<br />\n" + 
+	   		"		감사합니다.\n" + 
+	   		"	</p>\n" + 
+	   		"\n" + 
+	   		"	<a style=\"color: #FFF; text-decoration: none; text-align: center;\" href=\""+host+"emailCheckAction.do?code="+code+"&userID="+userid+"\" target=\"_blank\"><p style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #4dbce9; line-height: 45px; vertical-align: middle; font-size: 16px;\">메일 인증</p></a>\n" + 
+	   		"\n" + 
+	   		"	<div style=\"border-top: 1px solid #DDD; padding: 5px;\">\n" + 
+	   		"		<p style=\"font-size: 13px; line-height: 21px; color: #555;\">\n" + 
+	   		"			만약 버튼이 정상적으로 클릭되지 않는다면, 아래 링크를 복사하여 접속해 주세요.<br />\n" + 
+	   		"			"+host+"emailCheckAction.do?code="+code+"&userID="+userid+"\n" + 
+	   		"		</p>\n" + 
+	   		"	</div>\n" + 
+	   		"</div>";
+	   return html;
+   }
 
 }

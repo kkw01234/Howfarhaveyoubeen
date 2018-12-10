@@ -26,7 +26,7 @@
 .ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners
 	{
 	width: 100%;
-	height: 400px
+	height: 600px;
 }
 </style>
 </head>
@@ -41,90 +41,93 @@
 
 				<!-- Page Content -->
 				<div class="card mb-3">
-					<div class="card-header">다이어리 쓰기</div>
+					<div class="card-header">다이어리 쓰기
+						<div class="text-right" style='display:inline; float: right;'>
+							<!-- 공개 비공개 라디오 버튼 -->
+								<div class="btn-group" id="radio" data-toggle="buttons">
+									<label class="btn btn-primary btn-sm ">
+										<input type="radio" name="shared" id="shared" autocomplete="off" value="true">
+											공개
+										</label>
+										<label class="btn btn-primary btn-sm active">
+											<input type="radio" name="shared" id="shared" autocomplete="off" checked="checked" value="false">
+												비공개
+											</label>
+										</div>
+							</div>
+					</div>
 					<div class="card-body">
 						<form>
 							<div class="row">
-								<div class="col-sm-2">
-									<label for="diaryTitle" class="text-center">제목 : </label>
-								</div>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" id="diaryTitle"
-										placeholder="제목" />
-								</div>
-							</div>
-							<div class="row">
 								<div class="col-md-6">
-									<label for="user"> 이름 : </label> <input type="text"
-										class="form-control" id="user" placeholder="사용자" /> <label
-										for="date"> 날짜 : </label> <input type="date"
-										class="form-control" id="date" /> <label for="start">
-										출발지 : </label>
-									<div class="row">
-										<div class="col-sm-9">
-											<input type="text" class="form-control" id="start"
-												placeholder="출발지" />
-										</div>
-										<div id="startb" class="col-sm-3">
-											<button id="startbutton" type="button"
-												class="btn btn-primary" onclick="citytopoint('start')">확인</button>
-										</div>
-									</div>
-									<label for="end"> 도착지 : </label>
-									<div class="row">
-										<div class="col-sm-9">
-											<input type="text" class="form-control" id="end"
-												placeholder="도착지" />
-										</div>
-										<div id="endb" class="col-sm-3">
-											<button id="endbutton" type="button" class="btn btn-primary"
-												onclick="citytopoint('end')">확인</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6">
-									<div class="col-md-6">
-										<div id="googlemaps"
-											style="width: 300px; height: 300px; overflow: auto;"></div>
-									</div>
-								</div>
-							</div>
+									<label for="diaryTitle" class="text-center">
+										제목 :
+									</label>
+									<input type="text" class="form-control" id="diaryTitle" placeholder="제목"/>
 
-						</form>
-						<textarea name="content" id="editor"
-							style="width: 100%; height: 400px"></textarea>
-						<div class="text-right">
-							<!-- 공개 비공개 라디오 버튼 -->
-							<div class="btn-group" id="radio" data-toggle="buttons">
-								<label class="btn btn-primary btn-sm "> <input
-									type="radio" name="shared" id="shared" autocomplete="off"
-									value="true"> 공개
-								</label> <label class="btn btn-primary btn-sm active"> <input
-									type="radio" name="shared" id="shared" autocomplete="off"
-									checked value="false"> 비공개
-								</label>
+									<label for="user" class="text-center">
+										이름 :
+									</label>
+									<input type="text" class="form-control" id="user" placeholder="사용자"/>
+
+									<label for="date" class="text-center">
+										날짜 :
+									</label>
+									<input type="date" class="form-control" id="date"/>
+									<label for="start" class="text-center">
+										출발지 :
+									</label>
+									<div class="row">
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="start" placeholder="출발지"/>
+										</div>
+										<div id="startb" class="col-sm-2">
+											<button id="startbutton" type="button" class="btn btn-primary" onclick="citytopoint('start')">확인</button>
+										</div>
+									</div>
+									<label for="end" class="text-center">
+										도착지 :
+									</label>
+									<div class="row">
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="end" placeholder="도착지"/>
+										</div>
+										<div id="endb" class="col-sm-2">
+											<button id="endbutton" type="button" class="btn btn-primary" onclick="citytopoint('end')">확인</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+										<div id="googlemaps" style="width: inherit; height: 350px; overflow: auto;"></div>
+								</div>
+								
 							</div>
-							<button type="button" class="btn btn-primary"
-								onclick="uploadDiary()">확인</button>
-							<button type="button" class="btn btn-default" id="back">뒤로</button>
-							<!--  -->
-						</div>
+						</form>
+						<br>
+						<textarea name="content" id="editor"></textarea>
+						
+						<br>
+						<div style='display:inline;'>
+							
+							<div class="g-recaptcha" data-sitekey="6Lfwq38UAAAAAPHU49UpsTGHXbzbucb1naIZNVj5" style='display:inline-block; margin:auto;'></div>
+							<div class="text-right" style='display:inline; float:right;'>
+								<button type="button" class="btn btn-primary" onclick="uploadDiary()">확인</button>
+								<button type="button" class="btn btn-default" id="back">뒤로</button>
+							</div>
+						</div>	
 					</div>
 				</div>
 
-
-
-				<!-- /.container-fluid -->
-
-				<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
+						<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
+					</div>
+				</div>
 			</div>
-		</div>
-	</div>
 
 
 
 
 	<script src="js/bootstrap.min.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script
 		src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
 	<script>
@@ -159,6 +162,12 @@
     	   	alert("모두 확인 버튼을 눌러주세요!");
     	   	return;
     	}
+    	/*
+    	if (grecaptcha.getResponse() == ""){
+		    alert("리캡챠를 체크해야 합니다.");
+    		return;
+    	}
+    	*/
     	obj.startplat=markerloc[0].lat();
    	  	obj.startplng=markerloc[0].lng();
    		obj.endplat=markerloc[1].lat();
@@ -199,14 +208,12 @@
 		var userID = "<%=userID%>";
 	        $('#user').attr('value',userID);
 	        $('#user').attr('readonly', true);
-	    	// Editor configuration.
 	      
 		 ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게  
 			 ckfinder:{
 				uploadUrl :"ckeditorupload.do"
 			   },   		
 		   }).then( editor => {
-			    //editor.execute( 'underline' );
 				if(ticket !=null)
 			   		editor.setData('<img src="'+ticket.ticket+'"><br>');
 			   theEditor=editor;
