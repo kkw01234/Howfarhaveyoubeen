@@ -29,6 +29,7 @@
 	height: 600px;
 }
 </style>
+<link href="css/card.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -41,8 +42,8 @@
 
 				<!-- Page Content -->
 				<div class="card mb-3">
-					<div class="card-header">다이어리 쓰기
-						<div class="text-right" style='display:inline; float: right;'>
+					<div class="card-header"><div class="row"><div class="col-md-6"><h3>다이어리 쓰기</h3></div>
+						<div class="col-md-6 text-right" style='display:inline; float: right;'>
 							<!-- 공개 비공개 라디오 버튼 -->
 								<div class="btn-group" id="radio" data-toggle="buttons">
 									<label class="btn btn-primary btn-sm ">
@@ -54,6 +55,7 @@
 												비공개
 											</label>
 										</div>
+							</div>
 							</div>
 					</div>
 					<div class="card-body">

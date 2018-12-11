@@ -21,7 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-
+	<link href="css/card.css" rel="stylesheet">
   </head>
 <%
 	String userID = null;

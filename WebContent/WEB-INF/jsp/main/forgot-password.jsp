@@ -21,7 +21,7 @@
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
-
+	<link href="css/card.css" rel="stylesheet">
   </head>
 <%
 	String userID = null;
@@ -69,11 +69,11 @@
 
     <div id="container" class="container">
       <div class="card card-login mx-auto mt-5">
-        <div class="card-header" style="text-align: center;">비밀번호 초기화</div>
+        <div class="card-header" style="text-align: center">비밀번호 초기화</div>
         <div class="card-body">
           <div class="text-center mb-4">
             <h4>비밀번호를 잃어버리셨나요?</h4>
-            <p>회원가입 시 입력한 이메일 주소를 넣어주시면 아이디와 초기화 비밀번호를 전송해드립니다.</p>
+            <p>회원가입 시 입력한 이메일 주소를 넣어주시면 <br>아이디와 초기화 비밀번호를 전송해드립니다.</p>
           </div>
           <form method=post action="forgotpassword.do">
             <div class="form-group">

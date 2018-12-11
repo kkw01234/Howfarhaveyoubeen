@@ -14,7 +14,7 @@ public class DiaryModifyAction implements Action{
 		HttpSession session = request.getSession();
 		
 		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/404.jsp";
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
 		String id = (String) session.getAttribute("userID");
 		String diaryid = (String) request.getParameter("diaryID");

@@ -23,7 +23,9 @@
   min-height: 80%;
   border-radius: 0; 
 }
-
+.modal-header{
+	color:#4dbce9;
+}
 </style>
 </head>
 

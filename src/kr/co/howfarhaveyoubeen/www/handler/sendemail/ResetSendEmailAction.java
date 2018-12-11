@@ -92,7 +92,7 @@ public class ResetSendEmailAction{//login.do
 	   		"	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">\n" + 
 	   		"		안녕하세요.<br />\n" + 
 	   		"		요청하신 임시 비밀번호가 생성되었습니다.<br />\n" + 
-	   		"		아래 <b style=\"color: #4dbce9;\">'생성 확인'</b> 버튼을 클릭한 뒤, 임시 비밀번호로 로그인하세요.<br />\n" + 
+	   		"		아래 <b style=\"color: #4dbce9;\">'페이지로 가기'</b> 버튼을 클릭한 뒤, 임시 비밀번호로 로그인하세요.<br />\n" + 
 	   		"		감사합니다.\n" + 
 	   		"	</p>\n" + 
 	   		"	<p style=\"font-size: 16px; margin: 40px 5px 20px; line-height: 28px;\">\n" + 
@@ -105,8 +105,8 @@ public class ResetSendEmailAction{//login.do
 	   		"		임시 비밀번호: <br />\n" + 
 	   		"		<span style=\"font-size: 24px;\">"+password+"</span>\n" + 
 	   		"	</p>\n" + 
-	   		"</div>\n"+"<div></div>";
-	   html +="<a style=\"color: #FFF; text-decoration: none; text-align: center;\" href=\""+host+"\" target=\"_blank\"><p style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: {$point_color}; line-height: 45px; vertical-align: middle; font-size: 16px;\">페이지로 가기</p></a>";
+	   		"</div>\n"+"<div>"+
+	   		"<a style=\"color: #FFF; text-decoration: none; text-align: center;\" href=\""+host+"\" target=\"_blank\"><p style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background:  #4dbce9; line-height: 45px; vertical-align: middle; font-size: 16px;\">페이지로 가기</p></a></div>";
 	   
 	   return html;
 	   

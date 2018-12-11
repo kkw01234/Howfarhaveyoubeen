@@ -31,8 +31,11 @@
 	.table > tbody > tr> td:nth-child(1), .table > tbody > tr> td:nth-child(2) {
 		vertical-align: middle ! important;
 	}
+	.ck.ck-toolbar{
+		display:none;
+	}
 </style>
-
+<link href="css/card.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -87,7 +90,7 @@
 								</div>
 								</div>
 
-								<textarea name="content" id="editor" ></textarea>
+								<textarea name="content" id="editor" style="min-height:150px"></textarea>
 						</div>
 						<br>
 						<div class="text-right">
@@ -163,7 +166,8 @@
     $(document).ready(function() {
 		var diaryRead= <%=diaryread%>; //다이어리 디비 저장
 		 ClassicEditor.create(document.querySelector('#editor'),{//CKEditor 사용할 수 있게
-			   ckfinder:{
+			 toolbar : [],
+			 ckfinder:{
 				uploadUrl :"ckeditorupload.do"
 			   },
 		   }).then( editor => {

@@ -20,7 +20,7 @@ public class DiaryDeleteAction implements Action{
 		DiaryDAO dao = DiaryDAO.getInstance();
 		
 		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/404.jsp";
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
 		
 		String result = null;

@@ -16,19 +16,11 @@
 <meta name="author" content="">
 
 <title>다이어리 리스트</title>
-<style>
-ul{
-	display:none;
-}
 
-.pagination-info{
-	display:none;
-	
-}
-
-</style>
 <link href="css/bootstrap-table.css" rel="stylesheet">
 <link href="css/bootstrap-slider.css" rel="stylesheet">
+<link href="css/boardtable.css" rel="stylesheet">
+<link href="css/card.css" rel="stylesheet">
 </head>
 <body id="page-top">
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
@@ -55,7 +47,7 @@ ul{
 							<br>
 							<div id="maincontent" class="table-wrapper">
 								<table class="boardtable" id="table" data-toggle="table"
-									data-pagination="true" data-search="true"
+									data-pagination="true" data-search="true" 
 									data-page-list="[10]">
 									<thead>
 										<tr class="table-style">
@@ -114,23 +106,29 @@ function formatDate2(date){
 		var rows = [];
 		for(var i=0;i<diarylist.length;i++){//아직 수정필요
 				var value = diarylist[i];
-				var startpoint = value.startPoint.split(",");
-				var endpoint = value.endPoint.split(",");
-				var a,b;
-				if(startpoint.length >1){
-					a=startpoint[startpoint.length-2]+" "+startpoint[startpoint.length-1];
+				var startpoint = value.startPoint;
+				var endpoint = value.endPoint;
+				var a="",b="";
+				if(startpoint.length >15){
+					a +="...";
+					for(var j=startpoint.length-15;j<startpoint.length;j++){
+						a+=startpoint[j];
+					}
 				}else
 					a=value.startPoint;
-				if(endpoint.length >1){
-					b=endpoint[endpoint.length-2]+" "+endpoint[endpoint.length-1]
+				if(endpoint.length >15){
+					b +="...";
+					for(var j=endpoint.length-15;j<endpoint.length;j++){
+						b+=endpoint[j];
+					}
 				}else
 					b=value.endPoint;
 				rows.push({
 					id : i+1,
 					diaryTitle : '<a href="diaryreader.do?diaryID='+value.diaryID+'">'+value.diaryTitle+'</a>',
 					diaryDate : formatDate2(value.diaryDate),
-					startPoint : a,
-					endPoint :  b
+					startPoint : '<a title="'+value.startPoint+'">'+a+'</a>',
+					endPoint :  '<a title="'+value.endPoint+'">'+b+'</a>'
 				});
 		}
 		return rows;

@@ -20,14 +20,25 @@
 #page-top{
 	background-size:cover;
 }
+#wrapper{
+	
+	width:100%;
+	height:100%;
+}
 </style>
 
 <body id="page-top" style="backgroud-size:cover;">
 	<div id="background-changer">
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
-	<div id="wrapper">
+	<div id="wrapper" style="display:block">
 	<%if(session.getAttribute("userID")!=null) {%>
 		<jsp:include page="../main/sidebar.jsp" flush="false"></jsp:include>
+		<%}else{ %>
+		<ul class="sidebar navbar-nav" id="sidebar" style="background-color:transparent">
+		<li class="nav-item"><a class="nav-link" href="loginpage.do"> <i
+					class="fas fa-fw fa-folder" style="color:white"></i> <span style="color:white">시작하기</span>
+			</a></li>
+		</ul>
 		<%} %>
 		<div id="content-wrapper">
 			<!-- 이미지 첨부랑 설명이 필요한 메인 페이지 -->
@@ -46,7 +57,7 @@
 </body>
 <script>
 
-var images = ["image/index1.jpg", "image/1.jpg", "image/jeju1.png"];
+var images = ["image/index/koln.png", "image/index/prague.png", "image/index/index1.jpg"];
 
 $('#page-top').css('background-image', "url('" + images[0] + "')");
 $('#page-top').css('background-size',"cover");

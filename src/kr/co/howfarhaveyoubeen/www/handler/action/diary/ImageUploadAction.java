@@ -66,10 +66,12 @@ public class ImageUploadAction implements Action{//1206수정
 		
 		fileObj = multi.getFile(fileInput);
 		fileRealName = multi.getFilesystemName(fileInput);
-		if(fileRealName == null) {
-			return null;
-		}	
 		fileName = multi.getOriginalFileName(fileInput);
+		//System.out.println(fileName + fileRealName);
+		if(fileRealName == null || fileName == null) {
+			return "RequestDispatcher:jsp/diary/imageupload.jsp";
+		}	
+		
 		String newfileName = simDf.format(new Date(currentTime))+"-"+fileName;
 		
 		

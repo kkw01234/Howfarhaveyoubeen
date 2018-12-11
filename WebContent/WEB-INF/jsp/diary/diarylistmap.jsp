@@ -17,6 +17,12 @@
 <meta name="author" content="">
 
 <title>DiaryListMap</title>
+<style>
+.text1{
+	font-size : 20px;
+	font-color : black;
+}
+</style>
 </head>
 <body id="page-top">
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
@@ -26,42 +32,38 @@
 			<!-- 이미지 첨부랑 설명이 필요한 메인 페이지 -->
 
 			<div class="container-fluid">
-				<div id="main" class="wrapper style1">
-					<div class="container">
-						<header class="major">
-							<h2>다이어리 리스트</h2>
-						</header>
-
+						<div style='display:inline;'>
+							<h2 style='display:inline;color:#4dbce9'>지도로 다이어리 보기</h2>
+							<button id="switch" style="float: right" type="button"
+									class="btn btn-default" style='display:inline;'>전환</button>
+						</div>
+						
 						<!-- Table -->
 						<section>
-							<div>
-								<button id="switch" style="float: right" type="button"
-									class="btn btn-default">전환</button>
-
-							</div>
-							<br>
-							<br>
+							<p>다녀왔던 여행지를 지도에서 클릭해보세요!</p>
 							<!-- Page Content 수정파트 -->
 							<div class="card mb-3">
-								<div class="card-header">다이어리 리스트</div>
-								<div class="card-body" style="height: 500px">
+								<div class="card-body" style="height: 800px">
 									<div class="row">
 										<div id="googlemaps" class="col-md-8 col-sm-6"
 											style="width: 100%; height: -webkit-fill-available; overflow: auto;">
 
 										</div>
-										<div class="col-md-4 col-sm-6" id="text"></div>
+										<div class="col-md-4 col-sm-6" id="text">
+										</div>
 									</div>
 								</div>
+								
+								
 							</div>
 						</section>
+						
+						</div>
 					</div>
 
 					<!-- /.container-fluid -->
 					<jsp:include page="../main/footer.jsp" flush="false"></jsp:include>
 				</div>
-			</div>
-		</div>
 
 		<script>
 			function formatDate2(date) {//이코드 수정 필요할듯 싶습니다.
@@ -114,6 +116,7 @@
 				clickListener(iterator);
 				resultsMap.setCenter(loc);
 			}
+			
 			var b = null;
 			function clickListener(iterator) {//clicklistener (수정필요)
 				google.maps.event
@@ -128,27 +131,31 @@
 											var a = '<div id="title"><h2> 제목 : '
 													+ diarylist[j].diaryTitle
 													+ '</h2></div>'; //제목설정
-											a += '<div>날짜 : '
+											a += '<div><span class="text1">날짜 : '
 													+ formatDate2(diarylist[j].diaryDate)
-													+ '</div>';
-											a += '<div>지역 : '
+													+ '</span></div>';
+											a += '<div><span class="text1">출발지 : <br>'
+													+ diarylist[j].startPoint
+													+ '</span></div>';
+											a += '<div><span class="text1">도착지 : <br>'
 													+ diarylist[j].endPoint
-													+ '</div>';
-											a += '내용 : <br><div>'
-													+ diarylist[j].diaryContent
-													+ '</div>';
-											a += '<div class="text-right"><button id="modify" type="button" class ="btn btn-primary" onclick ="modify()">수정</button></div>'//내용설정
+													+ '</span></div>';
+											a += '<br><br><div class="text-right"><button id="reader" type="button" class ="btn btn-primary" onclick ="reader()">내용보기</button></div>';
+													
+													
 											$('#text').html(a);
 										}
 									}
 
 								});
 			}
-			$('#modify').click(function() {//이게 왜 인식이 안되는지 모르겠음
-				document.location.href = "diarymodifier.do?diaryID=" + b;
-			})
-			function modify() {//똑같은 코드
-				document.location.href = "diarymodifier.do?diaryID=" + b;
+			
+			function reader() {//똑같은 코드
+				if(b == null){
+					alert("다이어리를 선택해주세요.");
+					return;
+				}else
+					document.location.href = "diaryreader.do?diaryID=" + b;
 			}
 			$('#switch').click(function(){
 		   		window.location.href="diarylist.do";
@@ -157,7 +164,10 @@
 
 		<script
 			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=initMap"
-			async defer></script>
+			async defer>
+		</script>
+
+		<script src="js/ckeditor.js"></script>
 </body>
 
 </html>

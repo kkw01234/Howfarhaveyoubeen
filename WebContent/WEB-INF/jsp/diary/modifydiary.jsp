@@ -32,7 +32,7 @@
 
 <link rel="stylesheet" href="css/bootstrap-table.css" />
 <!-- Bootstrap core JavaScript-->
-
+<link href="css/card.css" rel="stylesheet">
 
 </head>
 <body id="page-top">
@@ -316,7 +316,7 @@
       		geocoder.geocode({'address': addrArr[ace]}, function(results, status) {
         			if (status === 'OK') { //잘 맞게 돌아오면
        				var loc = results[0].geometry.location;//lat(),lng();
-       				var addr = results[0].formatted_address.split(" ");
+       				var addr = results[0].formatted_address;
 
        				console.log(results[0].formatted_address);
        				resultsMap.setCenter(loc);

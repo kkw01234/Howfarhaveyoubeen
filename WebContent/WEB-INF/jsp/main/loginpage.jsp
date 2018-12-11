@@ -16,6 +16,7 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
     <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/card.css" rel="stylesheet">
 </head>
 <%
 	String userID = null;
@@ -93,7 +94,6 @@
 
       <!-- Core plugin JavaScript-->
       <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
     </body>
 
   </html>

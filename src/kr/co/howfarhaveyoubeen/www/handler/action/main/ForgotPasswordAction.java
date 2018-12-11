@@ -60,7 +60,9 @@ public class ForgotPasswordAction implements Action{//forgotpassword.do
 			sendResult = resetSend.resetSendEmail(userID, resetPassword, userEmail,request); //초기화 계정 메일 전송
 			
 			if(sendResult==true && changePasswordResult==true) {
-				System.out.println("초기화 메일이 성공적으로 보내졌습니다.");
+				script.println("<script>");
+				script.println("alert('메일 전송을 성공했습니다. 메일을 확인해 주세요')");
+				script.println("</script>");
 				result = "RequestDispatcher:jsp/main/loginpage.jsp";
 			}else {
 				System.out.println("메일 전송에 오류가 있습니다.");

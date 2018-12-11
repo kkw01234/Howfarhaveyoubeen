@@ -51,8 +51,10 @@
 	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
-</style>
 
+
+</style>
+<link href="css/card.css" rel="stylesheet">
 </head>
 <body id="page-top">
 
@@ -113,7 +115,7 @@
 	        reader.onload = function (e) {
 	            $target.css('display', '');
 	            //$target.css('background-image', 'url(\"' + e.target.result + '\")'); // 배경으로 지정시
-	            $target.html('<img src="' + e.target.result + '" border="0" alt=""style="max-width:inherit" />');
+	            $target.html('<img src="' + e.target.result + '" border="0" alt=""style="width:-webkit-fill-available;max-width:inherit" />');
 	        	image = e.target.result;
 	        }
 	        reader.readAsDataURL(html.files[0]);

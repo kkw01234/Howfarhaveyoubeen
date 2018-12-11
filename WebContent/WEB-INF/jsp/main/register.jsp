@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-  <title>SB Admin - Register</title>
+  <title>How far have you been - Register</title>
 
   <!-- Bootstrap core CSS-->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,15 @@
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="css/card.css" rel="stylesheet">
+ <style>
+#caution{
+	font-size:12px;
+	color:red;
+	text-align:center;
+}
  
+ </style>
 </head>
 <%
 	String userID = null;
@@ -104,6 +112,7 @@
                         <label for="inputEmail">이메일 주소</label>
                       </div>
                     </div>
+                    <div id="caution">이메일 인증을 하시면 로그인 가능합니다.</div>
                     <input id="login" type="submit" class="btn btn-primary btn-block" value="가입하기">
                     </form>
                     <div class="text-center">

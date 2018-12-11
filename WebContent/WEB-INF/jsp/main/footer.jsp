@@ -9,9 +9,9 @@
         <footer id="footer" class="sticky-footer" style="width:100%">
           <div class="container my-auto">
             <div class="copyright text-center my-auto">
-              <span>Copyright © Kyonggi Univ. Computer Science Web Service Project</span>
+              <span style="color:black">Copyright © Kyonggi Univ. Computer Science Web Service Project</span>
               <br>
-              <span>Made by Kim Keon Wook, Kim Tae Hyung, Kim Ju Yong</span>
+              <span style="color:black">Made by Kim Keon Wook, Kim Tae Hyung, Kim Ju Yong</span>
             </div>
           </div>
         </footer>

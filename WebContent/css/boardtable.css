@@ -1,61 +1,100 @@
-table:not([class]) td {
-    border: 1px solid grey;
+ul{
+	display:none;
 }
 
-.boardtable {
-    align-content: center;
+.pagination-info{
+	display:none;
+	 
+}
+
+.boardtable{
+
+	align-content: center;
     margin: 0;
     border-collapse: collapse;
-    font-size: 13px;
+ 
 }
-
 .boardtable td {
     padding-top:4px;
     padding-bottom:4px;
-    min-width: 100px;
     text-align: center;
-    border-bottom: 1px solid gainsboro;
 }
 
-.boardtable > thead > tr > th:nth-child(2) {
-    min-width: 400px;
+.boardtable > thead > tr{
+	border-bottom: 2px solid #dee2e6;
+    border-top: 2px solid #dee2e6;
+}
+.boardtable > thead > tr > th{
+	text-align:center;
+	background-color:#bdf7ff;
+	margin: 0;
+	border-left-color:transparent;
+	border-right-color:transparent;
+    
+}
+.boardtable > tbody > tr >td {
+	font-size:15px;
+	border-left-color:transparent;
+	border-right-color:transparnet;
+}
+.boardtable > thead > tr > th:nth-child(1){
+	width:5%;
+	max-width:30px;
+}
+.boardtable > tbody > tr > td:nth-child(1){
+	width:5%;
+	max-width:30px;	
+}
+.boardtable > thead > tr > th:nth-child(2){
+	min-width: 150px;
+	width:30%;
+}
+.boardtable > tbody > tr > td:nth-child(2){
+	font-size:17px;
+	min-width: 150px;
+	width:30%;
 }
 
-.boardtable > thead > tr > th:nth-child(4) {
-    width: 150px;
+.boardtable > thead > tr > th:nth-child(3){
+	width:10%;
+	max-width:100px;
+}
+.boardtable > tbody > tr > td:nth-child(3){
+	width:10%;
+	max-width:100px;
 }
 
-.boardtable > tbody > tr > td:nth-child(2) {
-    font-family: 'Nanum Gothic', sans-serif;
-    min-width: 400px;
+.boardtable > thead > tr > th:nth-child(4){
+	width:15%;
+	min-width:100px;
+	max-width:200px;
+}
+.boardtable > tbody > tr > td:nth-child(4){
+	width:15%;
+	min-width:100px;
+	max-width:200px;
 }
 
-.boardtable > tbody > tr > td:nth-child(4) {
-    width: 150px;
+.boardtable > thead > tr > th:nth-child(5){
+	width:15%;
+	min-width:100px;
+	max-width:200px;
+}
+.boardtable > tbody > tr > td:nth-child(5){
+	width:15%;
+	min-width:100px;
+	max-width:200px;
 }
 
-#page {
-    justify-content: center;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.boardtable > thead > tr > th:nth-child(6){
+	min-width: 100px;
 }
+.boardtable > tbody > tr > td:nth-child(6){
 
-table a {
-    color: #546E7A;
+	width:100px;
+	overflow:hidden;
+	text-overflow:ellopsis;
 }
-
-strong a {
-    color: #546E7A;
-}
-
-.boardtable th {
-    margin: 0;
-    border-bottom: 1px solid #607D8B;
-    border-top: 2px solid #607D8B;
-    background-color: #ECEFF1;
-}
-.post_title:hover{
-    color: black;
-    text-decoration: underline;
+.pull-right.pagination{
+	margin-left:45%;	
 }

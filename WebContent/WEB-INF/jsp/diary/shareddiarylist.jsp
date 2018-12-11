@@ -17,20 +17,11 @@
 <meta name="author" content="">
 
 <title>나의 여행 다이어리</title>
-<style>
-ul{
-	display:none;
-}
 
-.pagination-info{
-	display:none;
-	
-}
-
-</style>
 
 <link rel="stylesheet" href="css/bootstrap-table.css" />
-
+<link href="css/boardtable.css" rel="stylesheet">
+<link href="css/card.css" rel="stylesheet">
 </head>
 <body id="page-top">
 	<jsp:include page="../main/layout.jsp" flush="false"></jsp:include>
@@ -73,10 +64,10 @@ ul{
 										<tr class="table-style">
 											<th data-field="id" data-sortabel="true">순위</th>
 											<th data-field="diaryTitle" data-sortable="true">제목</th>
-											<th data-field="userID" data-sortable="true">작성자</th>
 											<th data-field="diaryDate" data-sortable="true">작성일</th>
 											<th data-field="startPoint" data-sortable="true">출발지역</th>
 											<th data-field="endPoint" data-sortable="true">여행지역</th>
+											<th data-field="userID" data-sortable="true">작성자</th>
 											<th data-field="readCount" data-sortable="true">조회수</th>
 										</tr>
 									</thead>
@@ -121,32 +112,39 @@ function formatDate2(date){
 		var rows = [];
 		for(var i=0;i<diarylist.length;i++){//아직 수정필요
 				var value = diarylist[i];
-				var startpoint = value.startPoint.split(" ");
-				var endpoint = value.endPoint.split(" ");
-				var a,b;
+				var startpoint = value.startPoint;
+				var endpoint = value.endPoint;
+				var a='',b='';
 				var hit = value.readCount;
 				var ID = value.userID;
-				if(startpoint.length >1){
-					a=startpoint[startpoint.length-2]+" "+startpoint[startpoint.length-1];
+				if(startpoint.length >15){
+					a +="...";
+					for(var j=startpoint.length-13;j<startpoint.length;j++){
+						a+=startpoint[j];
+					}
 				}else
 					a=value.startPoint;
-				if(endpoint.length >1){
-					b=endpoint[endpoint.length-2]+" "+endpoint[endpoint.length-1];
+				if(endpoint.length >15){
+					b +="...";
+					for(var j=endpoint.length-13;j<endpoint.length;j++){
+						b+=endpoint[j];
+					}
 				}else
 					b=value.endPoint;
 				rows.push({
 					id : i+1,
 					diaryTitle : '<a href="diaryreader.do?diaryID='+value.diaryID+'">'+value.diaryTitle+'</a>',
-					userID : ID,
 					diaryDate : formatDate2(value.diaryDate),
-					startPoint : a,
-					endPoint :  b,
+					startPoint : '<a title="'+value.startPoint+'">'+a+'</a>',
+					endPoint :  '<a title="'+value.endPoint+'">'+b+'</a>',
+					userID : ID,
 					readCount : hit
+					
 				});
 		}
 		return rows;
 	}
-	
+
 	$(document).ready(function(){
         callSetupTableView();
      })

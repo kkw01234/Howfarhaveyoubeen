@@ -72,10 +72,7 @@ public class CKEditorUploader implements Action{
 					fout.close();
 					oldFile.delete();
 				} 
-				
-				//response.getWriter().println("<script type='text/javascript'>window.parent.CKEDITOR.tools.callFunction('"+ contextPath + newFileName + "', '완료');</script>");
-				//response.getWriter().flush(); 
-				//String json = "{\"uploaded\":true, \"url\":\"http://localhost:8080"+request.getContextPath()+"/image/uploadimage/"+FileNmae+"\"}";
+
 				JsonObject outData = new JsonObject();
 				outData.addProperty("uploaded", true);
 				outData.addProperty("url",request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+request.getContextPath()+"/image/uploadimage/"+newFileName);

@@ -67,8 +67,9 @@
 						} else {
 					%>
 					<!-- 우선 삭제 안해놓을게 -->
-					<a class="dropdown-item" href="changepasswordpage.do">비밀번호 변경</a> <a
-						class="dropdown-item" href="logout.do">로그아웃</a>
+					<a class="dropdown-item" href="changepasswordpage.do">비밀번호 변경</a> 
+					<a class="dropdown-item" href="#" onclick="withdrawal()">회원탈퇴</a> 
+					<a class="dropdown-item" href="logout.do">로그아웃</a>
 					<%
 						}
 					%>
@@ -103,6 +104,16 @@
 		$('#header1').css("background-color","#343a40");
 	}
 	
+	function withdrawal(){
+		var retVal = confirm("정말로 회원을 탈퇴하시겠습니까???");
+
+		   if( retVal == true ){
+			  window.location.href="withdrawal.do";
+		   }
+
+
+
+	}
 </script>
 
 

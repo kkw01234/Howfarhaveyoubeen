@@ -214,5 +214,30 @@ public class UserDAO {
 			}
 			
 		}
+		public String withdraw(String userID) throws SQLException { //회원 탈퇴
+			String SQL = "DELETE FROM userdb WHERE userID=?";
+		
+			String SQL1 = "DELETE FROM diarydb WHERE userID=?";
+			String SQL2 = "DELETE FROM coordinates WHERE userID=?";
+			Connection conn = Config.getInstance().sqlLogin();
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1, userID);
+				pstmt.executeUpdate();
+				pstmt = conn.prepareStatement(SQL1);
+				pstmt.setString(1, userID);
+				pstmt.executeUpdate();
+				pstmt = conn.prepareStatement(SQL2);
+				pstmt.setString(1, userID);
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				DbUtils.close(conn);
+			}
+			
+			return userID+"님의 회원 탈퇴가 완료되었습니다";
+		}
 		
 }

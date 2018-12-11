@@ -17,7 +17,7 @@ public class DiaryReaderAction implements Action{
 		String diaryid = request.getParameter("diaryID");
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/404.jsp";
+			return "RequestDispatcher:jsp/error/notloginerror.jsp";
 		}
 		Gson gson = new Gson();
 		DiaryDAO diarydao = DiaryDAO.getInstance();
