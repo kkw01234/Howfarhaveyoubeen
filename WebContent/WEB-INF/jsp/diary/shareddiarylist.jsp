@@ -119,14 +119,14 @@ function formatDate2(date){
 				var ID = value.userID;
 				if(startpoint.length >15){
 					a +="...";
-					for(var j=startpoint.length-13;j<startpoint.length;j++){
+					for(var j=startpoint.length-15;j<startpoint.length;j++){
 						a+=startpoint[j];
 					}
 				}else
 					a=value.startPoint;
 				if(endpoint.length >15){
 					b +="...";
-					for(var j=endpoint.length-13;j<endpoint.length;j++){
+					for(var j=endpoint.length-15;j<endpoint.length;j++){
 						b+=endpoint[j];
 					}
 				}else

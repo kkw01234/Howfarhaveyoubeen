@@ -54,12 +54,13 @@
 									<thead>
 										<tr class="table-style">
 											<th data-field="id" data-sortabel="true">번호</th>
+											
 											<th data-field="diaryTitle" data-sortable="true">제목</th>
 											<th data-field="diaryDate" data-sortable="true">작성일</th>
 											<th data-field="startPoint" data-sortable="true">출발지역</th>
 											<th data-field="endPoint" data-sortable="true">여행지역</th>
 											<th data-field="userID" data-sortable="true">작성자</th>
-											<th data-field="readCount" data-sortable="true">조회수</th>
+											<th data-field="share" data-sortabel="true">공유</th>
 										</tr>
 									</thead>
 								</table>
@@ -108,14 +109,14 @@ function formatDate2(date){
 				var a='',b='';
 				var hit = value.readCount;
 				var ID = value.userID;
-				if(startpoint.length >15){
+				if(startpoint.length >13){
 					a +="...";
 					for(var j=startpoint.length-13;j<startpoint.length;j++){
 						a+=startpoint[j];
 					}
 				}else
 					a=value.startPoint;
-				if(endpoint.length >15){
+				if(endpoint.length >13){
 					b +="...";
 					for(var j=endpoint.length-13;j<endpoint.length;j++){
 						b+=endpoint[j];
@@ -124,13 +125,13 @@ function formatDate2(date){
 					b=value.endPoint;
 				rows.push({
 					id : i+1,
+				
 					diaryTitle : '<a href="diaryreader.do?diaryID='+value.diaryID+'">'+value.diaryTitle+'</a>',
 					diaryDate : formatDate2(value.diaryDate),
 					startPoint : '<a title="'+value.startPoint+'">'+a+'</a>',
 					endPoint :  '<a title="'+value.endPoint+'">'+b+'</a>',
 					userID : ID,
-					readCount : hit
-					
+					share : value.share,
 				});
 		}
 		return rows;
