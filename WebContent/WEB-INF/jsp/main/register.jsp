@@ -18,7 +18,7 @@
   <!-- Custom fonts for this template-->
   <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- Custom styles for this template-->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="css/sb-admin.min.css" rel="stylesheet">
   <link href="css/card.css" rel="stylesheet">
  <style>
 #caution{
@@ -76,7 +76,7 @@
     <div class="card card-register mx-auto mt-5">
       <div class="card-header" style="text-align: center;">회원가입</div>
       <div class="card-body">
-        <form name="wform" method="post" action="register.do">
+        <form name="wform" method="post" action="register.do" onsubmit='return check_on()'>
           <div class="form-group">
             <div class="form-label-group">
               <input type="text" id="inputID" name="userID" class="form-control" placeholder="ID" required="required">
@@ -100,6 +100,7 @@
                     </div>
                   </div>
                 </div>
+                <div id="caution">비밀번호는 숫자, 영문, 특수기호를 포함한 8자 이상이여야 합니다.</div>
                 <div class="form-group">
                   <div class="form-label-group">
                     <input type="text" id="inputName" name="userName" class="form-control" placeholder="Name" required="required">
@@ -114,6 +115,7 @@
                     </div>
                     <div id="caution">이메일 인증을 하시면 로그인 가능합니다.</div>
                     <input id="login" type="submit" class="btn btn-primary btn-block" value="가입하기">
+                    
                     </form>
                     <div class="text-center">
                       <a class="d-block small mt-3" href="loginpage.do" ">로그인 페이지</a>
@@ -122,7 +124,7 @@
                   </div>
                 </div>
               </div>
-             <div id="aftercontainer" class="container">
+             <div id="aftercontainer">
 	 				<div class="card card-login mx-auto mt-5" id="incard">
 	 				</div>
 			</div>
@@ -137,6 +139,7 @@
 				<script>
 				$(document).ready(function(){
 					$('#aftercontainer').hide();
+					$("#incard").hide();
 				})
 				$('#login').click(function(){
 					var text = '';
@@ -144,6 +147,19 @@
 					sendmail('#container','#incard',text);
 					$('#aftercontainer').show();
 				})
+				
+				function check_on(){
+					var userID = $('#inputID').val();
+					var password = $('#inputPassword').val();
+					var confirm = $('#confirmPassword').val();
+					var name= $('#inputName').val();
+					var email = $('#inputEmail').val();
+					if(userID=='' || password=='' || confirm=='' || name=='' || email==''){
+						alert("모두 입력해주세요");
+						return false;
+					};
+					return true;
+				}
 				</script>
             </body>
 

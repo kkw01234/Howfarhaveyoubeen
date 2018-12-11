@@ -476,7 +476,7 @@
             return sprintf('Showing %s rows', totalRows);
         },
         formatSearch: function () {
-            return '검색';
+            return '';
         },
         formatNoMatches: function () {
             return 'No matching records found';

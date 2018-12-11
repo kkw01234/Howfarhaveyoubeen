@@ -37,7 +37,7 @@ public class DiaryDAO {
 		List<Map<String, Object>> map = null;
 		try {
 			QueryRunner queryRunner = new QueryRunner();
-			map = queryRunner.query(conn, "Select * FROM diarydb WHERE userID=?", new MapListHandler(), id);
+			map = queryRunner.query(conn, "Select * FROM diarydb WHERE userID=? ORDER BY diaryID DESC", new MapListHandler(), id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -295,5 +295,27 @@ public class DiaryDAO {
 
 		return gson.toJson(coordinates);
 
+	}
+
+	public ArrayList<Diarydbbean> Alldiary() throws SQLException {
+		Connection conn = Config.getInstance().sqlLogin();
+		List<Map<String,Object>> map = null;
+		try {
+			QueryRunner queryRunner= new QueryRunner();
+			map = queryRunner.query(conn, "Select * FROM diarydb Order By diaryID DESC",new MapListHandler());
+		}catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DbUtils.close(conn);
+		}
+		Gson gson = new Gson();
+		ArrayList<Diarydbbean> beanlist = new ArrayList<>();
+		if (map != null) {
+			for (int i = 0; i < map.size(); i++) {
+				Diarydbbean bean = gson.fromJson(gson.toJson(map.get(i)), Diarydbbean.class);
+				beanlist.add(bean);
+			}
+		}
+		return beanlist;
 	}
 }

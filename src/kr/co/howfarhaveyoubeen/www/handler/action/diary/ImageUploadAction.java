@@ -130,10 +130,11 @@ public class ImageUploadAction implements Action{//1206수정
 			return null;
 		}
 		ArrayList<String> start = googlevisiondao.fromArray(list); //Google vision 실행
+		if(start!=null) 
+			request.setAttribute("start",gson.toJson(start));
 		ArrayList<String> end = googlevisiondao.toArray(list);
-		
-		request.setAttribute("start",gson.toJson(start));
-		request.setAttribute("end",gson.toJson(end));
+		if(end!=null) 
+			request.setAttribute("start",gson.toJson(start));
 		
 		}catch(IOException e){
 				e.printStackTrace();

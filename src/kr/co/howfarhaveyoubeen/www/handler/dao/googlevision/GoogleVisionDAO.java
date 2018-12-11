@@ -121,9 +121,16 @@ public class GoogleVisionDAO {
 				break;
 			}
 		}
-		
-		for(int i=0;i<3;i++) {
+		int x=0;
+		while(st.hasMoreTokens()) {
 			objArr.add(st.nextToken());
+			x++;
+			if(x>2) {
+				break;
+			}
+		}
+		if(x==0) {
+			return null;
 		}
 		long endtime = System.currentTimeMillis();
 		System.out.println("From 실행 시간 : "+ (endtime - starttime)/1000.0);
@@ -145,9 +152,16 @@ public class GoogleVisionDAO {
 			}
 		
 		}
-		for(int i=0;i<3;i++) {
-			
+		int x=0;
+		while(st.hasMoreTokens()) {
 			objArr.add(st.nextToken());
+			x++;
+			if(x>2) {
+				break;
+			}
+		}
+		if(x==0) {
+			return null;
 		}
 		long endtime = System.currentTimeMillis();
 		System.out.println("to 실행 시간 : "+ (endtime - starttime)/1000.0);

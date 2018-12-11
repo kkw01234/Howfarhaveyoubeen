@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <%
+ 	String text = (String) request.getAttribute("text");
+ %>
   <html>
 
  <head>
@@ -9,13 +13,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-    <title>SB Admin - Login</title>
+    <title>How far have you been - Login</title>
      <!-- Bootstrap core CSS-->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
      <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/sb-admin.min.css" rel="stylesheet">
     <link href="css/card.css" rel="stylesheet">
 </head>
 <%
@@ -66,6 +70,7 @@
   <div class="card card-login mx-auto mt-5">
     <div class="card-header" style="text-align: center;">로그인</div>
     <div class="card-body">
+    <div id="txt"></div>
       <form method="post" action="login.do">
         <div class="form-group">
           <div class="form-label-group">

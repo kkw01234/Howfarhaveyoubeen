@@ -15,6 +15,8 @@ import kr.co.howfarhaveyoubeen.www.common.controller.Action;
 import kr.co.howfarhaveyoubeen.www.handler.dao.diary.DiaryDAO;
 import kr.co.howfarhaveyoubeen.www.handler.dao.file.FileDAO;
 import kr.co.howfarhaveyoubeen.www.handler.dao.googlevision.GoogleVisionDAO;
+import kr.co.howfarhaveyoubeen.www.handler.dao.user.UserDAO;
+import kr.co.howfarhaveyoubeen.www.handler.vo.Userdbbean;
 
 public class AjaxDiaryAction implements Action{
 
@@ -42,7 +44,11 @@ public class AjaxDiaryAction implements Action{
 		case "modifydiary":
 			result = DiaryDAO.getInstance().modifyDiary(element);
 			break;
-		//밑 두부분 삭제
+		case "deleteuser":
+			String user = (String) request.getParameter("user");
+			UserDAO.getInstance().withdraw(user);
+			result="Success";
+			break;
 		}
 		return result;
 	}

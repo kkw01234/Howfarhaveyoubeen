@@ -20,7 +20,7 @@
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin.css" rel="stylesheet">
+    <link href="css/sb-admin.min.css" rel="stylesheet">
 	<link href="css/card.css" rel="stylesheet">
   </head>
 <%
@@ -99,7 +99,7 @@
                 <label for="PasswordConfirm">변경 비밀번호 확인</label>
               </div>
             </div>
-            
+             <div style="color:red;font-size:12px">비밀번호는 숫자, 영문, 특수기호를 포함한 8자 이상이여야 합니다.</div>
             <input type="submit" class="btn btn-primary btn-block" value="비밀번호 변경">
           </form>
           <div class="text-center">

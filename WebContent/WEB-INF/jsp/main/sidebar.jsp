@@ -30,6 +30,12 @@ i,.side{
 			<li class="nav-item"><a class="nav-link" href="shareddiarypage.do?seq=1"> <i
 					class="fas fa-fw fa-chart-area"></i> <span class="side">친구 여행기</span>
 			</a></li>
+			<% if("admin".equals(session.getAttribute("userID"))){ %>
+			<li class="nav-item"><a class="nav-link" href="adminuser.do"> <i
+					class="fas fa-fw fa-chart-area"></i> <span class="side">관리하기</span>
+			</a></li>
+			
+			<%} %>
 		</ul>
 
 <script>

@@ -185,10 +185,12 @@
 	   		},
 	   		success : function(data){
 	   			var d = data;
-	   			alert(d[0]);
-	   			if(d[0] =="Success")
+	   			if(d[0] =="Success"){
+		   			alert("다이어리 작성이 완료되었습니다.");
 	   				window.location.href="diaryreader.do?diaryID="+data[1];//?userID=세션
-	   		}
+	   			}else
+	   				alert("다이어리 작성에 실패하였습니다. 다시 입력해주세요.");
+	   			}
    		});
    }
    
@@ -230,17 +232,21 @@
 
 	function ocrcomplete(){
 	   if(ocrdata !=null){
-			$('#start').val(ocrdata.start);
-			$('#end').val(ocrdata.end);
-			$('#start').attr("disabled",true);
-			$('#end').attr("disabled",true);
-			$('#startb').html('<button id="startmodifybutton" type="button" class="btn btn-default" onclick="modifybutton(\'start\')">수정</button>');
-			$('#endb').html('<button id="endmodifybutton" type="button" class="btn btn-default" onclick="modifybutton(\'end\')">수정</button>');
-	        	markerloc[0]=new google.maps.LatLng(ocrdata.startlat,ocrdata.startlng);
-				markerloc[1]=new google.maps.LatLng(ocrdata.endlat,ocrdata.endlng);
-				addMarker(map,markerloc[0],"start",0);
-				addMarker(map,markerloc[1],"end",1);
-				map.setCenter(markerloc[1]);
+				if(ocrdata.startlat != null && ocrdata.startlng != null){
+	        		$('#start').val(ocrdata.start);
+	        		$('#start').attr("disabled",true);
+	        		$('#startb').html('<button id="startmodifybutton" type="button" class="btn btn-default" onclick="modifybutton(\'start\')">수정</button>');
+					markerloc[0]=new google.maps.LatLng(ocrdata.startlat,ocrdata.startlng);
+	        		addMarker(map,markerloc[0],"start",0);
+	        	}
+	        	if(ocrdata.endlat != null && ocrdata.endlng != null){
+	        		$('#end').val(ocrdata.end);
+	        		$('#end').attr("disabled",true);
+	        		$('#endb').html('<button id="endmodifybutton" type="button" class="btn btn-default" onclick="modifybutton(\'end\')">수정</button>');
+	        		markerloc[1]=new google.maps.LatLng(ocrdata.endlat,ocrdata.endlng);
+					addMarker(map,markerloc[1],"end",1);
+					map.setCenter(markerloc[1]);
+	        	}
 		}
    }
    	function citytopoint(point){

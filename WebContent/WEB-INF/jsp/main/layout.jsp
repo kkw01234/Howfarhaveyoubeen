@@ -13,7 +13,7 @@
 	rel="stylesheet">
 
 <!-- Custom styles for this template-->
-<link href="css/sb-admin.css" rel="stylesheet">
+<link href="css/sb-admin.min.css" rel="stylesheet">
 
 <%
 	String index = (String)request.getAttribute("index");
@@ -38,7 +38,7 @@
 			<%
 				if (userID == null) {
 			%>
-			<h6 style="color:white">로그인 해주세요</h6>
+			<a href="loginpage.do"><h6 style="color:white">로그인 해주세요</h6></a>
 			<%
 				} else {
 			%>

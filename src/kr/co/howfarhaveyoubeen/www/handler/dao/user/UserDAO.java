@@ -7,6 +7,8 @@ import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
+import com.google.gson.Gson;
+
 import kr.co.howfarhaveyoubeen.www.common.sql.Config;
 import kr.co.howfarhaveyoubeen.www.handler.vo.Userdbbean;
 
@@ -238,6 +240,26 @@ public class UserDAO {
 			}
 			
 			return userID+"님의 회원 탈퇴가 완료되었습니다";
+		}
+		public ArrayList<Userdbbean> AllUser() throws SQLException { //모든 유저를 받아오는곳 (Admin 계정)
+			Connection conn =Config.getInstance().sqlLogin();
+			List<Map<String,Object>> maplist = null;
+			try {
+				QueryRunner queryRunner = new QueryRunner();
+				maplist = queryRunner.query(conn,"Select userID,userName,userEmail,userEmailChecked,emailCode FROM userdb",  new MapListHandler());
+			}catch(SQLException se){
+				se.printStackTrace();
+			}finally {
+				DbUtils.close(conn);
+			}
+			Gson gson = new Gson();
+			ArrayList<Userdbbean> beanlist = new ArrayList<>();
+			for(int i=0;i<maplist.size();i++) {
+				Userdbbean bean = gson.fromJson(gson.toJson(maplist.get(i)), Userdbbean.class);
+				if(!bean.getUserID().equals("admin"))
+					beanlist.add(bean);
+			}
+			return beanlist;
 		}
 		
 }

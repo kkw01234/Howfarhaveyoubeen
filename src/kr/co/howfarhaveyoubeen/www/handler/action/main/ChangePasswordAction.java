@@ -55,12 +55,15 @@ public class ChangePasswordAction implements Action{//changepassword.do
 				System.out.println("비밀번호가 정상적으로 변경되었습니다.");
 				script.println("<script>");
 				script.println("alert('비밀번호가 정상적으로 변경되었습니다.')");
-				script.println("history.back()");
+				script.println("window.location.href=\"Index\"");
 				script.println("</script>");
 				return null;
 			}else {
-				System.out.println("비밀번호 변경에 오류가 생겼습니다.");
-				result = "RequestDispatcher:jsp/main/changepassword.jsp";
+				script.println("<script>");
+				script.println("alert('비밀번호변경에 오류가 생겼습니다.')");
+				script.println("window.location.href=\"Index\"");
+				script.println("</script>");
+				return null;
 			}
 		}else if(checkPasswordResult==0){
 			System.out.println("현재 비밀번호가 맞지 않습니다.");
@@ -78,7 +81,6 @@ public class ChangePasswordAction implements Action{//changepassword.do
 			return null;
 		}
 			
-		return result;
 	}
 
 }

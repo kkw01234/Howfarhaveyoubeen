@@ -51,15 +51,15 @@
 											id="startloc">
 										</select>
 									</div>
-									<br>
+									<div id="starterror"><br></div>
 									<div id="end" class="form-group">
 										<label for="endloc">도착지</label> <select class="form-control"
 											id="endloc">
 										</select>
 									</div>
-								<br>
-								<div>
-									모두 없을 경우는 아래 모두 없음을 클릭해주세요
+									<div id="enderror"><br></div>
+								<div id="explain">
+									모두 없을 경우는 아래 모두 없음을 클릭해주세요<br>
 									(다이어리 작성할 때 수정 가능합니다.)
 								</div>
 								<br><br><br><br><br><br><br><br><br>
@@ -128,14 +128,22 @@
 		var start = $('#startloc');
 		var end = $('#endloc');
 		var a = 0;
+		if(startArr != null){
 		for (var i = 0; i < startArr.length; i++) {
 			geocodeAddress(geocoder, startArr[i], start, a, "start");
 			a = 1;
 		}
+		}else{
+			$('#starterror').html('<span style="color:red;font-size:19px">출발지가 확인이 되지 않습니다.</span>')
+		}
 		a = 0;
+		if(endArr != null){
 		for (var j = 0; j < endArr.length; j++) {
 			geocodeAddress(geocoder, endArr[j], end, a, "end");
 			a = 1;
+		}
+		}else{
+			$('#enderror').html('<span style="color:red;font-size:19px">도착지가 확인이 되지 않습니다.</span>')
 		}
 
 		$('#locModal').modal('show');
@@ -244,6 +252,8 @@
 			})
 		})
 	}
+	
+	
 </script>
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvJ_OC7o2tQfl9tKh6H0nNQhU-GAoYp3c&callback=Location"
