@@ -18,31 +18,29 @@ import kr.co.howfarhaveyoubeen.www.handler.dao.googlevision.GoogleVisionDAO;
 import kr.co.howfarhaveyoubeen.www.handler.dao.user.UserDAO;
 import kr.co.howfarhaveyoubeen.www.handler.vo.Userdbbean;
 
-public class AjaxDiaryAction implements Action{
+public class AjaxRegisterAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session = request.getSession();
-		if(session.getAttribute("userID")==null) {
-			return "RequestDispatcher:jsp/error/notloginerror.jsp";
-		}
-		Gson gson = new Gson();
+		
 		String req= request.getParameter("req");
 		String data = request.getParameter("data");
-		//HttpSession session = request.getSession();
 		String result=null;
-		JsonParser parser = null;
-		JsonElement element = null;
-		if(data != null) {
-			parser = new JsonParser();
-			element = parser.parse(data);//String을 Jsonelement로
-		}
+		
 		switch(req) {
-		case "writediary":
-			result = DiaryDAO.getInstance().insertDiary(element);
+		case "userID":
+			Boolean b = UserDAO.getInstance().validateUserID(data);
+			if(b) {
+				result = "중복된 아이디가 있습니다.";
+			}else
+				result="";
 			break;
-		case "modifydiary":
-			result = DiaryDAO.getInstance().modifyDiary(element);
+		case "email" : 
+			Boolean a =UserDAO.getInstance().usedEmailCheck(data);
+			if(a) {
+				result = "중복된 이메일이 있습니다.";
+			}else
+				result="";
 			break;
 		}
 		return result;

@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
- <%
- 	String text = (String) request.getAttribute("text");
- %>
+   
   <html>
 
  <head>
@@ -70,7 +67,6 @@
   <div class="card card-login mx-auto mt-5">
     <div class="card-header" style="text-align: center;">로그인</div>
     <div class="card-body">
-    <div id="txt"></div>
       <form method="post" action="login.do">
         <div class="form-group">
           <div class="form-label-group">

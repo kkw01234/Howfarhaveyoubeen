@@ -134,7 +134,7 @@ public class ImageUploadAction implements Action{//1206수정
 			request.setAttribute("start",gson.toJson(start));
 		ArrayList<String> end = googlevisiondao.toArray(list);
 		if(end!=null) 
-			request.setAttribute("start",gson.toJson(start));
+			request.setAttribute("end",gson.toJson(end));
 		
 		}catch(IOException e){
 				e.printStackTrace();

@@ -102,7 +102,7 @@ public class RegisterAction implements Action{//register.do
 			SendEmailAction send = new SendEmailAction();
 			int email_result = send.SendEmail(userID, randomCode, request); //이메일 전송
 			if(email_result==1) {
-				request.setAttribute("text","이메일 전송을 완료하였습니다.");
+				
 			}else if(email_result==0) {
 				System.out.println("이메일 전송에 실패했습니다.");
 				dao.deleteUser(user); //오류났을때 삭제 코드 (추가)
@@ -120,8 +120,9 @@ public class RegisterAction implements Action{//register.do
 				script.println("</script>");
 				return null;
 			}
-			result = "RequestDispatcher:jsp/main/loginpage.do";
-
+			
+			result = "RequestDispatcher:jsp/main/loginpage.jsp";
+			System.out.println(result);
 		}else {
 			System.out.println("존재하는 아이디입니다.");
 			script.println("<script>");

@@ -137,7 +137,6 @@ public class GoogleVisionDAO {
 		return objArr;
 	}
 	public ArrayList<String> toArray(String textList) {//StringTokenizer 3개 받아와서 3개를 프런트로
-		long starttime=System.currentTimeMillis();
 		StringTokenizer st = new StringTokenizer(textList);
 		ArrayList<String> objArr = new ArrayList<>();
 		boolean from = false;
@@ -164,7 +163,6 @@ public class GoogleVisionDAO {
 			return null;
 		}
 		long endtime = System.currentTimeMillis();
-		System.out.println("to 실행 시간 : "+ (endtime - starttime)/1000.0);
 		return objArr;
 	}
 }

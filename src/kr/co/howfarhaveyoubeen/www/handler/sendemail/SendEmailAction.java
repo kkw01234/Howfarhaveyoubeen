@@ -81,7 +81,6 @@ public class SendEmailAction {//login.do
 		    msg.setContent(content, "text/html;charset=UTF-8");
 		    Transport.send(msg);
 
-			result = "RequestDispatcher:jsp/main/sendemail.jsp";
 		} catch(Exception e){
 		    e.printStackTrace();
 

@@ -261,5 +261,21 @@ public class UserDAO {
 			}
 			return beanlist;
 		}
-		
+		public Boolean validateUserID(String userID) {
+			String SQL = "SELECT userID FROM USERDB WHERE userID=?";
+			Connection conn = Config.getInstance().sqlLogin();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				pstmt = conn.prepareStatement(SQL);
+				pstmt.setString(1,  userID);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					return true;
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+			return false; //db오류
+		}
 }

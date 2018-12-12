@@ -113,7 +113,7 @@
     
      function deleteuser(userID){
 		$.ajax({
-	   		url : "ajaxdiary.do",
+	   		url : "ajaxadmin.do",
 	   		type : "post",
 	   		data:{
 	   			req : "deleteuser",

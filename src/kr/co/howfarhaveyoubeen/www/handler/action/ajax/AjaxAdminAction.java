@@ -18,31 +18,27 @@ import kr.co.howfarhaveyoubeen.www.handler.dao.googlevision.GoogleVisionDAO;
 import kr.co.howfarhaveyoubeen.www.handler.dao.user.UserDAO;
 import kr.co.howfarhaveyoubeen.www.handler.vo.Userdbbean;
 
-public class AjaxDiaryAction implements Action{
+public class AjaxAdminAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("userID")==null) {
 			return "RequestDispatcher:jsp/error/notloginerror.jsp";
+		} else if(!session.getAttribute("userID").equals("admin")) {
+			return "RequestDispatcher:jsp/error/404.jsp";
 		}
 		Gson gson = new Gson();
 		String req= request.getParameter("req");
 		String data = request.getParameter("data");
 		//HttpSession session = request.getSession();
 		String result=null;
-		JsonParser parser = null;
-		JsonElement element = null;
-		if(data != null) {
-			parser = new JsonParser();
-			element = parser.parse(data);//String을 Jsonelement로
-		}
+		
 		switch(req) {
-		case "writediary":
-			result = DiaryDAO.getInstance().insertDiary(element);
-			break;
-		case "modifydiary":
-			result = DiaryDAO.getInstance().modifyDiary(element);
+		case "deleteuser":
+			String user = (String) request.getParameter("user");
+			UserDAO.getInstance().withdraw(user);
+			result="Success";
 			break;
 		}
 		return result;

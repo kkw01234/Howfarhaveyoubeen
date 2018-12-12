@@ -49,7 +49,7 @@ public class Controller extends HttpServlet{
 				try {
 					forward = action.execute(request, response);//실행..!!
 				} catch (Exception e) {
-					//세션 잃어버렸는데, 작업을 진행할때
+					e.printStackTrace();//세션 잃어버렸는데, 작업을 진행할때
 				}
 			}catch(ClassNotFoundException ex){
 				ex.printStackTrace();
@@ -68,7 +68,6 @@ public class Controller extends HttpServlet{
 				{
 					String jspName = (forward.split(":")[1]);				
 					request.getRequestDispatcher("WEB-INF/" + forward.split(":")[1]).forward(request, response);
-					//System.out.println("/" + jspName);
 				}
 				else {
 					PrintWriter pr = response.getWriter();
